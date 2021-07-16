@@ -24,6 +24,7 @@ class EditFormAdapter (private var formArray: ArrayList<Form>) : RecyclerView.Ad
         val title : TextView = itemView.findViewById(R.id.title_edit)
         val number : EditText = itemView.findViewById(R.id.number_edit)
         val deleteButton : ImageButton = itemView.findViewById(R.id.delete_edit)
+        var textWatcher: TextWatcher? = null
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -33,6 +34,12 @@ class EditFormAdapter (private var formArray: ArrayList<Form>) : RecyclerView.Ad
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        // Remove any existing TextWatcher that will be keyed to the wrong ListItem
+        if(holder.textWatcher != null){
+            holder.number.removeTextChangedListener(holder.textWatcher)
+        }
+
         val form = formArray[position]
         holder.title.text = (form.name + "：")
 
@@ -45,7 +52,7 @@ class EditFormAdapter (private var formArray: ArrayList<Form>) : RecyclerView.Ad
         }
 
         // synchronize data when text changes
-        val textWatcher = object : TextWatcher {
+        holder.textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
@@ -56,7 +63,7 @@ class EditFormAdapter (private var formArray: ArrayList<Form>) : RecyclerView.Ad
                 }
             }
         }
-        holder.number.addTextChangedListener(textWatcher)
+        holder.number.addTextChangedListener(holder.textWatcher)
 
         // delete form
         holder.deleteButton.setOnClickListener {
@@ -70,10 +77,7 @@ class EditFormAdapter (private var formArray: ArrayList<Form>) : RecyclerView.Ad
 
     // BUG PART
     fun updateData(newFormArray: ArrayList<Form>){
-        println("Update Data")
-        println("Old data : " + formArray)
         formArray = newFormArray
-        println("New data : " + formArray)
         notifyDataSetChanged()
     }
 }

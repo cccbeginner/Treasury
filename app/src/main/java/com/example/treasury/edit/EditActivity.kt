@@ -16,8 +16,9 @@ import com.example.treasury.formDatabase.Form
 
 class EditActivity : AppCompatActivity() {
 
-    lateinit var formRepository : FormRepository
-    lateinit var editViewModel : EditViewModel
+    private lateinit var formRepository : FormRepository
+    private lateinit var editViewModel : EditViewModel
+    private val arrayCnt = 6
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +30,6 @@ class EditActivity : AppCompatActivity() {
         )).get(
             EditViewModel::class.java)
 
-        val arrayCnt = 6
         val formRecyclerViewArray = ArrayList<RecyclerView>()
         formRecyclerViewArray.add(findViewById(R.id.form_1_1_recyclerview))//0
         formRecyclerViewArray.add(findViewById(R.id.form_2_1_recyclerview))//1
@@ -38,21 +38,33 @@ class EditActivity : AppCompatActivity() {
         formRecyclerViewArray.add(findViewById(R.id.form_4_recyclerview))//4
         formRecyclerViewArray.add(findViewById(R.id.form_5_recyclerview))//5
 
+        var alreadyObserve = 0
         for(i in 0 until arrayCnt){
             val adapter = EditFormAdapter(ArrayList())
             adapter.event = TextChange(editViewModel)
             formRecyclerViewArray[i].adapter = adapter
             formRecyclerViewArray[i].layoutManager = LinearLayoutManager(applicationContext)
             editViewModel.formLiveDataArray[i].observe(this, {
-                println("type $i observe")
-                println(it)
+                /*
+                 * What this observer do is to fetch database data
+                 * initially, and it supposed to do only once.
+                 */
+                for (form in it){
+                    editViewModel.insert(form)
+                }
+                alreadyObserve += 1
+                if(alreadyObserve == arrayCnt){
+                    initData()
+                }
+            })
+            editViewModel.tmpFormLiveDataArray[i].observe(this, {
                 runOnUiThread {
-                    //adapterArray[i].updateData(it)
+                    adapter.updateData(it)
 
                     // destroy old adapter and make a new one
-                    val adapter2 = EditFormAdapter(it)
+                    /*val adapter2 = EditFormAdapter(it)
                     adapter2.event = TextChange(editViewModel)
-                    formRecyclerViewArray[i].adapter = adapter2
+                    formRecyclerViewArray[i].adapter = adapter2*/
                 }
             })
         }
@@ -72,8 +84,13 @@ class EditActivity : AppCompatActivity() {
 
         val saveButton = findViewById<Button>(R.id.save_button)
         saveButton.setOnClickListener{
+            editViewModel.saveData()
             finish()
         }
+
+    }
+
+    private fun initData(){
 
         /*
         initialize forms if doesn't have any:

@@ -19,9 +19,7 @@ class PageViewModel(private val formRepository: FormRepository, private val year
 
     fun fetchData(){
         viewModelScope.launch {
-            for(i in 0 until arraySize){
-                formRepository.fetchData(yearMonth, i)
-            }
+            formRepository.fetchData()
         }
     }
 }

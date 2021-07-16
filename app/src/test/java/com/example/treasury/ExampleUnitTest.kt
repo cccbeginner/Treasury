@@ -11,11 +11,13 @@ import org.junit.Assert.*
  */
 class ExampleUnitTest {
     @Test
-    fun addition_isCorrect() {
+    fun correct() {
 
-        val exp = arrayListOf(1, 2, 3)
-        val act = arrayOf(1, 2, 3).toCollection(ArrayList())
+        var array = ArrayList<ArrayList<Int>>()
+        array.add(arrayListOf())
+        array.add(arrayListOf())
+        array.add(arrayListOf())
 
-        assertEquals(exp, act)
+        assertEquals(3, array.size)
     }
 }
