@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Treasury</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title1">一、流動現金：</string>
+    <string name="title1_1">a. 活存：(don)</string>
+    <string name="title1_2">b. 現金：</string>
+    <string name="title1_3">c. 外幣：</string>
+    <string name="title2">二、投資帳現值：</string>
+    <string name="title2_1">a. 證券：(don)</string>
+    <string name="title2_2">b. 基金：</string>
+    <string name="title2_3">c. 黃金：</string>
+    <string name="title3">三、貸款餘額：(don)</string>
+    <string name="title4">四、扣除：(don)</string>
+    <string name="title5">五、美股：(don)</string>
+    <string name="title6">六、不含美股總值：</string>
+    <string name="title7">七、含美股總值：</string>
+    <string name="add_form">＋新增</string>
 </resources>
