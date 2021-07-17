@@ -14,6 +14,10 @@ import com.example.treasury.formDatabase.Form
 
 class EditFormAdapter (private var formArray: ArrayList<Form>) : RecyclerView.Adapter<EditFormAdapter.ViewHolder>() {
 
+    // bind the current cursor and current form
+    private var cursor = -1
+    private var cursorForm: Form? = null
+
     lateinit var event : Event
     interface Event{
         fun onMoneyChange(number : Long, form : Form)
@@ -56,14 +60,28 @@ class EditFormAdapter (private var formArray: ArrayList<Form>) : RecyclerView.Ad
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
+
+                // bind the current cursor and current form
+                cursor = holder.number.selectionEnd
+                cursorForm = form
+
+                // synchronize data outside ( view & viewModel )
                 if(s.toString() == ""){
                     event.onMoneyChange(0, form)
-                }else {
+                }else{
                     event.onMoneyChange(s.toString().toLong(), form)
                 }
             }
         }
         holder.number.addTextChangedListener(holder.textWatcher)
+
+        // reset the cursor after update data
+        if(form == cursorForm){
+            holder.number.isFocusable = true
+            holder.number.isFocusableInTouchMode = true
+            holder.number.requestFocus()
+            holder.number.setSelection(cursor)
+        }
 
         // delete form
         holder.deleteButton.setOnClickListener {
