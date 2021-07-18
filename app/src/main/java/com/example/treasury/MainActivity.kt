@@ -13,7 +13,6 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlin.collections.ArrayList
 
-
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +34,7 @@ class MainActivity : AppCompatActivity() {
             val newYear = yearMonth / 12
             val newMonth = yearMonth % 12 + 1
             titles.add("$newYear 年 $newMonth 月")
-            fragments.add(newFragment(yearMonth))
+            fragments.add(PageFragment(yearMonth))
         }
 
         // ui -- viewPager2
@@ -46,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 FormRepository.selectedYearMonth = position + start
-                println("on page selected $position")
+                println("on page selected ${FormRepository.selectedYearMonth}")
             }
         })
 
@@ -68,9 +67,5 @@ class MainActivity : AppCompatActivity() {
         override fun createFragment(position: Int): Fragment {
             return fragments[position]
         }
-    }
-
-    private fun newFragment(yearMonth: Int): Fragment {
-        return PageFragment(yearMonth)
     }
 }

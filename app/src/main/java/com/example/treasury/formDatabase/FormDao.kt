@@ -6,6 +6,9 @@ import androidx.room.*
 interface FormDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(form : Form)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMany(formArray : Array<Form>)
 
     @Query("SELECT * FROM tbl_form WHERE year_month = :yearMonth and type = :type ORDER BY _id ASC")

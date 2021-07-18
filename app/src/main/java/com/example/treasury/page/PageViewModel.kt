@@ -2,18 +2,17 @@ package com.example.treasury.page
 
 import androidx.lifecycle.*
 import com.example.treasury.formDatabase.FormRepository
-import com.example.treasury.MyApplication
 import com.example.treasury.formDatabase.Form
 import kotlinx.coroutines.launch
 
-class PageViewModel(private val formRepository: FormRepository, private val yearMonth: Int) : ViewModel() {
-    private val arraySize = 6
-    var formLiveDataArray = ArrayList< LiveData< ArrayList<Form> > >()
+class PageViewModel(private val formRepository: FormRepository, yearMonth: Int) : ViewModel() {
+    var formLiveDataArray = mutableMapOf< Int, LiveData< ArrayList< Form > > >()
 
     init {
-        val array = formRepository.formArrayFlowMap[yearMonth - MyApplication.start]
-        for(i in 0 until arraySize){
-            formLiveDataArray.add(array[i].asLiveData())
+        // fill empty stuffs to the arrays above
+        val listFormArray = formRepository.listFlowMap[yearMonth]!!
+        for (type in Form.dataTypeArray){
+            formLiveDataArray[type] = listFormArray[type]?.asLiveData()!!
         }
     }
 

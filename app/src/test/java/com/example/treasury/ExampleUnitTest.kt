@@ -13,11 +13,14 @@ class ExampleUnitTest {
     @Test
     fun correct() {
 
-        var array = ArrayList<ArrayList<Int>>()
-        array.add(arrayListOf())
-        array.add(arrayListOf())
-        array.add(arrayListOf())
+        var a = mutableMapOf<Int, Int>()
+        a[0] = 1
+        a[1] = 2
+        a[2] = 3
+        for (e in a){
+            e.setValue(e.key)
+        }
 
-        assertEquals(3, array.size)
+        assertEquals(mapOf(0 to 0, 1 to 1, 2 to 2), a.toMap())
     }
 }

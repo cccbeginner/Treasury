@@ -16,10 +16,13 @@ import com.example.treasury.edit.EditActivity
 import com.example.treasury.formDatabase.FormRepository
 import com.example.treasury.MyApplication
 import com.example.treasury.R
+import com.example.treasury.formDatabase.Form
 
 class PageFragment(private val yearMonth: Int) : Fragment() {
 
-    lateinit var root: View
+    constructor() : this(FormRepository.selectedYearMonth)
+
+    private lateinit var root: View
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,24 +41,22 @@ class PageFragment(private val yearMonth: Int) : Fragment() {
         page.visibility = View.GONE
 
         //adapters
-        val arrayCnt = 6
-        val formRecyclerViewArray = ArrayList<RecyclerView>()
-        val adapterArray = ArrayList<PageFormAdapter>()
-        formRecyclerViewArray.add(root.findViewById(R.id.form_1_1_recyclerview))//0
-        formRecyclerViewArray.add(root.findViewById(R.id.form_2_1_recyclerview))//1
-        formRecyclerViewArray.add(root.findViewById(R.id.form_2_2_recyclerview))//2
-        formRecyclerViewArray.add(root.findViewById(R.id.form_3_recyclerview))//3
-        formRecyclerViewArray.add(root.findViewById(R.id.form_4_recyclerview))//4
-        formRecyclerViewArray.add(root.findViewById(R.id.form_5_recyclerview))//5
+        val formRecyclerViewArray = mutableMapOf<Int, RecyclerView>()
+        formRecyclerViewArray[Form.type_1_1] = root.findViewById(R.id.form_1_1_recyclerview)
+        formRecyclerViewArray[Form.type_2_1] = root.findViewById(R.id.form_2_1_recyclerview)
+        formRecyclerViewArray[Form.type_2_2] = root.findViewById(R.id.form_2_2_recyclerview)
+        formRecyclerViewArray[Form.type_3] = root.findViewById(R.id.form_3_recyclerview)
+        formRecyclerViewArray[Form.type_4] = root.findViewById(R.id.form_4_recyclerview)
+        formRecyclerViewArray[Form.type_5] = root.findViewById(R.id.form_5_recyclerview)
 
-        for(i in 0 until arrayCnt){
-            adapterArray.add(PageFormAdapter(ArrayList()))
-            formRecyclerViewArray[i].adapter = adapterArray[i]
-            formRecyclerViewArray[i].layoutManager = LinearLayoutManager(requireContext())
-            pageViewModel.formLiveDataArray[i].observe(viewLifecycleOwner, {
+        for(i in Form.listTypeArray){
+            val adapter = PageFormAdapter(ArrayList())
+            formRecyclerViewArray[i]?.adapter = adapter
+            formRecyclerViewArray[i]?.layoutManager = LinearLayoutManager(requireContext())
+            pageViewModel.formLiveDataArray[i]?.observe(viewLifecycleOwner, {
                 if(yearMonth == FormRepository.selectedYearMonth) {
                     requireActivity().runOnUiThread {
-                        adapterArray[i].updateData(it)
+                        adapter.updateData(it)
                         if (it.size > 0) {
                             goEdit.visibility = View.GONE
                             page.visibility = View.VISIBLE
