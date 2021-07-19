@@ -11,19 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/title1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="22sp"
-            android:text="@string/title1"/>
-        <TextView
-            android:id="@+id/title1_1"
+        <include
+            android:id="@+id/type_1"
+            layout="@layout/form_item_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <include
+            android:id="@+id/type_1_1"
+            layout="@layout/form_item_show"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="40dp"
-            android:textSize="22sp"
-            android:text="@string/title1_1"/>
+            android:padding="40dp"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/form_1_1_recyclerview"
             android:layout_width="wrap_content"
@@ -34,34 +32,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/AddButton"/>
-        <TextView
-            android:id="@+id/title1_2"
+        <include
+            android:id="@+id/type_1_2"
+            layout="@layout/form_item_edit_no_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="40dp"
-            android:textSize="22sp"
-            android:text="@string/title1_2"/>
-        <TextView
-            android:id="@+id/title1_3"
+            android:paddingStart="40dp"/>
+        <include
+            android:id="@+id/type_1_3"
+            layout="@layout/form_item_edit_no_delete"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="40dp"
-            android:textSize="22sp"
-            android:text="@string/title1_3"/>
+           android:layout_height="wrap_content"
+            android:paddingStart="40dp"/>
 
-        <TextView
-            android:id="@+id/title2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="22sp"
-            android:text="@string/title2"/>
-        <TextView
-            android:id="@+id/title2_1"
+        <include
+            android:id="@+id/type_2"
+            layout="@layout/form_item_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <include
+            android:id="@+id/type_2_1"
+            layout="@layout/form_item_show"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="40dp"
-            android:textSize="22sp"
-            android:text="@string/title2_1"/>
+            android:paddingStart="40dp"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/form_2_1_recyclerview"
             android:layout_width="wrap_content"
@@ -72,32 +66,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/AddButton"/>
-        <TextView
-            android:id="@+id/title2_2"
+        <include
+            android:id="@+id/type_2_2"
+            layout="@layout/form_item_show"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="40dp"
-            android:textSize="22sp"
-            android:text="@string/title2_2"/>
+            android:paddingStart="40dp"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/form_2_2_recyclerview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="80dp"/>
-        <TextView
-            android:id="@+id/title2_3"
+        <include
+            android:id="@+id/type_2_3"
+            layout="@layout/form_item_edit_no_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="40dp"
-            android:textSize="22sp"
-            android:text="@string/title2_3"/>
+            android:paddingStart="40dp"/>
 
-        <TextView
-            android:id="@+id/title3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="22sp"
-            android:text="@string/title3"/>
+        <include
+            android:id="@+id/type_3"
+            layout="@layout/form_item_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/form_3_recyclerview"
             android:layout_width="wrap_content"
@@ -109,12 +100,11 @@
             android:layout_height="wrap_content"
             style="@style/AddButton"/>
 
-        <TextView
-            android:id="@+id/title4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="22sp"
-            android:text="@string/title4"/>
+        <include
+            android:id="@+id/type_4"
+            layout="@layout/form_item_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/form_4_recyclerview"
             android:layout_width="wrap_content"
@@ -126,12 +116,11 @@
             android:layout_height="wrap_content"
             style="@style/AddButton"/>
 
-        <TextView
-            android:id="@+id/title5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="22sp"
-            android:text="@string/title5"/>
+        <include
+            android:id="@+id/type_5"
+            layout="@layout/form_item_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/form_5_recyclerview"
             android:layout_width="wrap_content"
@@ -143,23 +132,27 @@
             android:layout_height="wrap_content"
             style="@style/AddButton"/>
 
-        <TextView
-            android:id="@+id/title6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="22sp"
-            android:text="@string/title6"/>
-        <TextView
-            android:id="@+id/title7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="22sp"
-            android:text="@string/title7"/>
+        <include
+            android:id="@+id/type_6"
+            layout="@layout/form_item_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <include
+            android:id="@+id/type_7"
+            layout="@layout/form_item_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <Button
             android:id="@+id/save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="儲存"/>
+            android:text="@string/save"/>
+        <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#F00"
+            android:text="@string/cancel"/>
     </LinearLayout>
 </ScrollView>

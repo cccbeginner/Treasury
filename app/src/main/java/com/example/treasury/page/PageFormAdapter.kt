@@ -10,13 +10,13 @@ import com.example.treasury.formDatabase.Form
 
 class PageFormAdapter(private var formArray: ArrayList<Form>) : RecyclerView.Adapter<PageFormAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val title : TextView = itemView.findViewById(R.id.title_page)
-        val number : TextView = itemView.findViewById(R.id.number_page)
+        val title : TextView = itemView.findViewById(R.id.title_show)
+        val number : TextView = itemView.findViewById(R.id.number_show)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.form_item_page, parent, false)
+            .inflate(R.layout.form_item_show, parent, false)
         return ViewHolder(view)
     }
 

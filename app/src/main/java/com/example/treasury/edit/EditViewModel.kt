@@ -25,6 +25,7 @@ class EditViewModel(private val formRepository: FormRepository, yearMonth: Int) 
         }
         for (type in Form.allTypeArray){
             tmpSumLiveDataArray[type] = MutableLiveData(0)
+            tmpSumArray[type] = 0
         }
     }
 
@@ -45,20 +46,23 @@ class EditViewModel(private val formRepository: FormRepository, yearMonth: Int) 
         }
         tmpFormArray[form.type]!!.add(form)
         updateLiveData(form.type)
+        updateSum(form.type)
         return true
     }
-    fun update(form: Form){
-        for (i in 0 until tmpFormArray[form.type]!!.size){
-            val curForm = tmpFormArray[form.type]!![i]
-            if (form.name == curForm.name){
-                tmpFormArray[form.type]!![i] = form
+    fun update(type: Int, name: String, money: Long){
+        for (i in 0 until tmpFormArray[type]!!.size){
+            val curForm = tmpFormArray[type]!![i]
+            if (name == curForm.name){
+                tmpFormArray[type]!![i].money = money
             }
         }
-        updateLiveData(form.type)
+        updateLiveData(type)
+        updateSum(type)
     }
     fun delete(form: Form){
         tmpFormArray[form.type]!!.remove(form)
         updateLiveData(form.type)
+        updateSum(form.type)
     }
 
     // save to database
@@ -72,7 +76,7 @@ class EditViewModel(private val formRepository: FormRepository, yearMonth: Int) 
         }
     }
 
-    fun updateSum(type: Int){
+    private fun updateSum(type: Int){
         var sum = 0L
         if(type in Form.dataTypeArray){
             for (form in tmpFormArray[type]!!){
@@ -101,6 +105,22 @@ class EditViewModel(private val formRepository: FormRepository, yearMonth: Int) 
                 sum = tmpSumArray[Form.type_5]!!
                 sum += tmpSumArray[Form.type_6]!!
             }
+        }
+        tmpSumArray[type] = sum
+        tmpSumLiveDataArray[type]!!.postValue(sum)
+        when(type) {
+            Form.type_1_1 -> updateSum(Form.type_1)
+            Form.type_1_2 -> updateSum(Form.type_1)
+            Form.type_1_3 -> updateSum(Form.type_1)
+            Form.type_2_1 -> updateSum(Form.type_2)
+            Form.type_2_2 -> updateSum(Form.type_2)
+            Form.type_2_3 -> updateSum(Form.type_2)
+            Form.type_1 -> updateSum(Form.type_6)
+            Form.type_2 -> updateSum(Form.type_6)
+            Form.type_3 -> updateSum(Form.type_6)
+            Form.type_4 -> updateSum(Form.type_6)
+            Form.type_5 -> updateSum(Form.type_7)
+            Form.type_6 -> updateSum(Form.type_7)
         }
     }
 }

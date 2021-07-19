@@ -20,8 +20,6 @@ import com.example.treasury.formDatabase.Form
 
 class PageFragment(private val yearMonth: Int) : Fragment() {
 
-    constructor() : this(FormRepository.selectedYearMonth)
-
     private lateinit var root: View
 
     override fun onCreateView(
