@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -38,7 +39,62 @@ class PageFragment(private val yearMonth: Int) : Fragment() {
         goEdit.visibility = View.VISIBLE
         page.visibility = View.GONE
 
-        //adapters
+
+        /*
+         * Set views.
+         */
+        val viewArray = mutableMapOf<Int, View>()
+        viewArray[Form.type_1] = root.findViewById(R.id.type_1)
+        viewArray[Form.type_1_1] = root.findViewById(R.id.type_1_1)
+        viewArray[Form.type_1_2] = root.findViewById(R.id.type_1_2)
+        viewArray[Form.type_1_3] = root.findViewById(R.id.type_1_3)
+        viewArray[Form.type_2] = root.findViewById(R.id.type_2)
+        viewArray[Form.type_2_1] = root.findViewById(R.id.type_2_1)
+        viewArray[Form.type_2_2] = root.findViewById(R.id.type_2_2)
+        viewArray[Form.type_2_3] = root.findViewById(R.id.type_2_3)
+        viewArray[Form.type_3] = root.findViewById(R.id.type_3)
+        viewArray[Form.type_4] = root.findViewById(R.id.type_4)
+        viewArray[Form.type_5] = root.findViewById(R.id.type_5)
+        viewArray[Form.type_6] = root.findViewById(R.id.type_6)
+        viewArray[Form.type_7] = root.findViewById(R.id.type_7)
+
+        /*
+         * Set view paddings
+         * (40 dp start)
+         */
+        viewArray[Form.type_1_1]!!.setPadding(100, 20, 0, 0)
+        viewArray[Form.type_1_2]!!.setPadding(100, 0, 0, 0)
+        viewArray[Form.type_1_3]!!.setPadding(100, 0, 0, 0)
+        viewArray[Form.type_2_1]!!.setPadding(100, 20, 0, 0)
+        viewArray[Form.type_2_2]!!.setPadding(100, 20, 0, 0)
+        viewArray[Form.type_2_3]!!.setPadding(100, 0, 0, 0)
+        viewArray[Form.type_1]!!.setPadding(0, 20, 0, 0)
+        viewArray[Form.type_2]!!.setPadding(0, 20, 0, 0)
+        viewArray[Form.type_3]!!.setPadding(0, 20, 0, 0)
+        viewArray[Form.type_4]!!.setPadding(0, 20, 0, 0)
+        viewArray[Form.type_5]!!.setPadding(0, 20, 0, 0)
+        viewArray[Form.type_6]!!.setPadding(0, 20, 0, 0)
+        viewArray[Form.type_7]!!.setPadding(0, 20, 0, 0)
+
+
+        /*
+         * Set titles for all types
+         */
+        viewArray[Form.type_1]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title1)
+        viewArray[Form.type_1_1]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title1_1)
+        viewArray[Form.type_1_2]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title1_2)
+        viewArray[Form.type_1_3]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title1_3)
+        viewArray[Form.type_2]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title2)
+        viewArray[Form.type_2_1]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title2_1)
+        viewArray[Form.type_2_2]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title2_2)
+        viewArray[Form.type_2_3]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title2_3)
+        viewArray[Form.type_3]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title3)
+        viewArray[Form.type_4]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title4)
+        viewArray[Form.type_5]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title5)
+        viewArray[Form.type_6]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title6)
+        viewArray[Form.type_7]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title7)
+
+        // set adapters for listed data
         val formRecyclerViewArray = mutableMapOf<Int, RecyclerView>()
         formRecyclerViewArray[Form.type_1_1] = root.findViewById(R.id.form_1_1_recyclerview)
         formRecyclerViewArray[Form.type_2_1] = root.findViewById(R.id.form_2_1_recyclerview)
@@ -61,6 +117,20 @@ class PageFragment(private val yearMonth: Int) : Fragment() {
                         }
                     }
                 }
+            })
+        }
+
+        /*
+         * Implements observers for calculating sum.
+         */
+        for (type in Form.dataTypeArray){
+            pageViewModel.formLiveDataArray[type]!!.observe(viewLifecycleOwner, {
+                pageViewModel.updateSum(type)
+            })
+        }
+        for (type in Form.allTypeArray){
+            pageViewModel.sumLiveDataArray[type]!!.observe(viewLifecycleOwner, {
+                viewArray[type]!!.findViewById<TextView>(R.id.number_show).text = it.toString()
             })
         }
 

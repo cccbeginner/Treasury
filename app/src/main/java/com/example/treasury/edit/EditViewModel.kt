@@ -97,8 +97,8 @@ class EditViewModel(private val formRepository: FormRepository, yearMonth: Int) 
             Form.type_6 -> {
                 sum = tmpSumArray[Form.type_1]!!
                 sum += tmpSumArray[Form.type_2]!!
-                sum += tmpSumArray[Form.type_3]!!
-                sum += tmpSumArray[Form.type_4]!!
+                sum -= tmpSumArray[Form.type_3]!!
+                sum -= tmpSumArray[Form.type_4]!!
             }
             Form.type_7 -> {
                 //sum = tmpSumArray[Form.type_5]!! * rate

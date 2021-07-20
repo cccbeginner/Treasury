@@ -54,6 +54,25 @@ class EditActivity : AppCompatActivity() {
         viewArray[Form.type_7] = findViewById(R.id.type_7)
 
         /*
+         * Set view paddings
+         * (100 dp start)
+         */
+        viewArray[Form.type_1_1]!!.setPadding(100, 20, 0, 0)
+        viewArray[Form.type_1_2]!!.setPadding(100, 0, 0, 0)
+        viewArray[Form.type_1_3]!!.setPadding(100, 0, 0, 0)
+        viewArray[Form.type_2_1]!!.setPadding(100, 20, 0, 0)
+        viewArray[Form.type_2_2]!!.setPadding(100, 20, 0, 0)
+        viewArray[Form.type_2_3]!!.setPadding(100, 0, 0, 0)
+        viewArray[Form.type_1]!!.setPadding(0, 20, 0, 0)
+        viewArray[Form.type_2]!!.setPadding(0, 20, 0, 0)
+        viewArray[Form.type_3]!!.setPadding(0, 20, 0, 0)
+        viewArray[Form.type_4]!!.setPadding(0, 20, 0, 0)
+        viewArray[Form.type_5]!!.setPadding(0, 20, 0, 0)
+        viewArray[Form.type_6]!!.setPadding(0, 20, 0, 0)
+        viewArray[Form.type_7]!!.setPadding(0, 20, 0, 0)
+
+
+        /*
          * Set titles for all types
          */
         viewArray[Form.type_1]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title1)
@@ -86,7 +105,7 @@ class EditActivity : AppCompatActivity() {
 
 
         /*
-         * Implement adapters and observers r lists of data.
+         * Implement adapters and observers for lists of data.
          */
         var alreadyObserve = 0
         for(type in Form.listTypeArray){
@@ -252,7 +271,7 @@ class EditActivity : AppCompatActivity() {
             Form.type_2_3 to arrayOf("黃金"),
             Form.type_3 to arrayOf(),
             Form.type_4 to arrayOf("文昌押金"),
-            Form.type_5 to arrayOf("E trade 舊", "E trade 新")
+            Form.type_5 to arrayOf("E trade 舊", "E trade 新", "F trade")
         )
         for(i in Form.dataTypeArray){
             for(name in insertArray[i]!!){

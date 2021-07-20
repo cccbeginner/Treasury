@@ -11,7 +11,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.treasury.R
 import com.example.treasury.formDatabase.Form
-import com.example.treasury.formDatabase.FormRepository
 
 class EditFormAdapter (private var formArray: ArrayList<Form>) : RecyclerView.Adapter<EditFormAdapter.ViewHolder>() {
 

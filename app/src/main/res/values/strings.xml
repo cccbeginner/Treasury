@@ -18,4 +18,5 @@
     <string name="add_form">＋新增</string>
     <string name="save">儲存</string>
     <string name="cancel">取消</string>
+    <string name="go_edit">修改</string>
 </resources>
