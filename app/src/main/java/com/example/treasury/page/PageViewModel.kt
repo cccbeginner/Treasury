@@ -5,7 +5,7 @@ import com.example.treasury.formDatabase.FormRepository
 import com.example.treasury.formDatabase.Form
 import kotlinx.coroutines.launch
 
-class PageViewModel(private val formRepository: FormRepository, yearMonth: Int) : ViewModel() {
+class PageViewModel(private val formRepository: FormRepository, private val yearMonth: Int) : ViewModel() {
     var formLiveDataArray = mutableMapOf< Int, LiveData< ArrayList< Form > > >()
     var sumLiveDataArray = mutableMapOf< Int, MutableLiveData< Long > >()
 
@@ -17,15 +17,12 @@ class PageViewModel(private val formRepository: FormRepository, yearMonth: Int) 
         val listFormArray = formRepository.listFlowMap[yearMonth]!!
         for (type in Form.dataTypeArray){
             formLiveDataArray[type] = listFormArray[type]!!.asLiveData()
-            /*formLiveDataArray[type]!!.observeForever {
-                updateSum(type)
-            }*/
         }
     }
 
     fun fetchData(){
         viewModelScope.launch {
-            formRepository.fetchData()
+            formRepository.fetchData(yearMonth)
         }
     }
 

@@ -23,15 +23,18 @@ class EditActivity : AppCompatActivity() {
 
     private lateinit var formRepository : FormRepository
     private lateinit var editViewModel : EditViewModel
+    private var currentYearMonth = -1
 
     @SuppressLint("CutPasteId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit)
 
+        currentYearMonth = intent.getIntExtra("yearMonth", -1)
         formRepository = (application as MyApplication).formRepository
+        println("edit yearmonth $currentYearMonth")
         editViewModel = ViewModelProvider(this, EditViewModelFactory(formRepository,
-            FormRepository.selectedYearMonth
+            currentYearMonth
         )).get(
             EditViewModel::class.java)
 
@@ -181,8 +184,6 @@ class EditActivity : AppCompatActivity() {
                 if(alreadyObserve == Form.dataTypeArray.size){
                     initData()
                 }
-            })
-            editViewModel.tmpFormLiveDataArray[type]!!.observe(this, {
                 if(it.isNotEmpty()) {
                     if (it[0].money != 0L) {
                         editTextArray[type]!!.setText(it[0].money.toString())
@@ -261,7 +262,7 @@ class EditActivity : AppCompatActivity() {
         (美股總值折合台幣=五×匯率)
 
          */
-        val month = FormRepository.selectedYearMonth
+        val month = currentYearMonth
         val insertArray = mapOf(
             Form.type_1_1 to arrayOf("中山", "台山", "台茹", "台宴", "郵茹", "星展"),
             Form.type_1_2 to arrayOf("現金"),
@@ -300,7 +301,7 @@ class EditActivity : AppCompatActivity() {
             val title = editText.text.toString().replace("\\s+".toRegex(), " ")
             println(title)
             if (title != "" && title != " "){
-                val newForm = Form(FormRepository.selectedYearMonth, formType, title)
+                val newForm = Form(currentYearMonth, formType, title)
                 editViewModel.insert(newForm)
             }
         }

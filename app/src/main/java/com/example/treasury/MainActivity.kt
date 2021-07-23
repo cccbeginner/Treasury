@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
 
         // current year and month
         val currentYearMonth = MyApplication.current
-        FormRepository.selectedYearMonth = currentYearMonth
 
         // resource to create pages
         val fragments = ArrayList<Fragment>()
@@ -42,12 +41,12 @@ class MainActivity : AppCompatActivity() {
         val viewPager2: ViewPager2 = findViewById(R.id.pages)
         viewPager2.adapter = pageAdapter
         viewPager2.currentItem = currentYearMonth - start
-        viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        /*viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 FormRepository.selectedYearMonth = position + start
                 println("on page selected ${FormRepository.selectedYearMonth}")
             }
-        })
+        })*/
 
         // ui -- tabLayout
         val tabLayout: TabLayout = findViewById(R.id.tabs)

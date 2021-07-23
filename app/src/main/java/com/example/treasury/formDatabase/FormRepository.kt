@@ -1,7 +1,9 @@
 package com.example.treasury.formDatabase
 
 import com.example.treasury.MyApplication
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
 
 class FormRepository (private val formDao: FormDao) {
@@ -19,14 +21,17 @@ class FormRepository (private val formDao: FormDao) {
         }
         for(yearMonth in MyApplication.start..MyApplication.end){
             listFlowMap[yearMonth] = mapList
+            GlobalScope.launch {
+                fetchData(yearMonth)
+            }
         }
     }
 
-    suspend fun fetchData(){
+    suspend fun fetchData(yearMonth: Int){
         for (type in Form.dataTypeArray) {
-            val forms = formDao.getByType(selectedYearMonth, type)
+            val forms = formDao.getByType(yearMonth, type)
             val formArray = forms.toCollection(ArrayList())
-            listFlowMap[selectedYearMonth]?.get(type)?.emit(formArray)
+            listFlowMap[yearMonth]?.get(type)?.emit(formArray)
         }
     }
 
@@ -36,11 +41,7 @@ class FormRepository (private val formDao: FormDao) {
     suspend fun insert(form: Form){
         formDao.insert(form)
     }
-    suspend fun deleteByCurrentYearMonth(){
-        formDao.deleteByYearMonth(selectedYearMonth)
-    }
-
-    companion object{
-        var selectedYearMonth by Delegates.notNull<Int>()
+    suspend fun deleteByCurrentYearMonth(yearMonth: Int){
+        formDao.deleteByYearMonth(yearMonth)
     }
 }

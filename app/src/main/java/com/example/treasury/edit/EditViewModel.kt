@@ -5,7 +5,7 @@ import com.example.treasury.formDatabase.FormRepository
 import com.example.treasury.formDatabase.Form
 import kotlinx.coroutines.launch
 
-class EditViewModel(private val formRepository: FormRepository, yearMonth: Int) : ViewModel() {
+class EditViewModel(private val formRepository: FormRepository, private val yearMonth: Int) : ViewModel() {
     var formLiveDataArray = mutableMapOf< Int, LiveData< ArrayList< Form > > >()
 
     // tmp arrays store temporary data
@@ -68,11 +68,11 @@ class EditViewModel(private val formRepository: FormRepository, yearMonth: Int) 
     // save to database
     fun saveData(){
         viewModelScope.launch {
-            formRepository.deleteByCurrentYearMonth()
+            formRepository.deleteByCurrentYearMonth(yearMonth)
             for (formArray in tmpFormArray){
                 formRepository.insertMany(formArray.value)
             }
-            formRepository.fetchData()
+            formRepository.fetchData(yearMonth)
         }
     }
 
