@@ -44,7 +44,6 @@ class PageFragment(private val yearMonth: Int) : Fragment() {
         goEdit.visibility = View.VISIBLE
         page.visibility = View.GONE
 
-
         /*
          * Set views.
          */
@@ -108,11 +107,11 @@ class PageFragment(private val yearMonth: Int) : Fragment() {
         formRecyclerViewArray[Form.type_4] = root.findViewById(R.id.form_4_recyclerview)
         formRecyclerViewArray[Form.type_5] = root.findViewById(R.id.form_5_recyclerview)
 
-        for(i in Form.listTypeArray){
+        for(type in Form.listTypeArray){
             val adapter = PageFormAdapter(ArrayList())
-            formRecyclerViewArray[i]?.adapter = adapter
-            formRecyclerViewArray[i]?.layoutManager = LinearLayoutManager(requireContext())
-            pageViewModel.formLiveDataArray[i]?.observe(viewLifecycleOwner, {
+            formRecyclerViewArray[type]?.adapter = adapter
+            formRecyclerViewArray[type]?.layoutManager = LinearLayoutManager(requireContext())
+            pageViewModel.formLiveDataArray[type]?.observe(viewLifecycleOwner, {
                 requireActivity().runOnUiThread {
                     adapter.updateData(it)
                     if (it.isNotEmpty()) {
@@ -120,20 +119,39 @@ class PageFragment(private val yearMonth: Int) : Fragment() {
                         page.visibility = View.VISIBLE
                     }
                 }
+                println("type $type form $it")
+                pageViewModel.updateSum(type)
+            })
+        }
+
+        for (type in Form.singleTypeArray){
+            pageViewModel.formLiveDataArray[type]!!.observe(viewLifecycleOwner, {
+                println("type $type form $it")
+                pageViewModel.updateSum(type)
             })
         }
 
         /*
-         * Implements observers for calculating sum.
+         * Implements observers for showing sum.
          */
-        for (type in Form.dataTypeArray){
-            pageViewModel.formLiveDataArray[type]!!.observe(viewLifecycleOwner, {
-                pageViewModel.updateSum(type)
-            })
-        }
         for (type in Form.allTypeArray){
             pageViewModel.sumLiveDataArray[type]!!.observe(viewLifecycleOwner, {
                 viewArray[type]!!.findViewById<TextView>(R.id.number_show).text = it.toString()
+                println("type $type sum $it")
+                when(type) {
+                    Form.type_1_1 -> pageViewModel.updateSum(Form.type_1)
+                    Form.type_1_2 -> pageViewModel.updateSum(Form.type_1)
+                    Form.type_1_3 -> pageViewModel.updateSum(Form.type_1)
+                    Form.type_2_1 -> pageViewModel.updateSum(Form.type_2)
+                    Form.type_2_2 -> pageViewModel.updateSum(Form.type_2)
+                    Form.type_2_3 -> pageViewModel.updateSum(Form.type_2)
+                    Form.type_1 -> pageViewModel.updateSum(Form.type_6)
+                    Form.type_2 -> pageViewModel.updateSum(Form.type_6)
+                    Form.type_3 -> pageViewModel.updateSum(Form.type_6)
+                    Form.type_4 -> pageViewModel.updateSum(Form.type_6)
+                    Form.type_5 -> pageViewModel.updateSum(Form.type_7)
+                    Form.type_6 -> pageViewModel.updateSum(Form.type_7)
+                }
             })
         }
 

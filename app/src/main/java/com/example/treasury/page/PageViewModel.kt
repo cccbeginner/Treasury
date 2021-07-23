@@ -57,20 +57,6 @@ class PageViewModel(private val formRepository: FormRepository, private val year
             }
         }
         sumLiveDataArray[type]!!.postValue(sum)
-        when(type) {
-            Form.type_1_1 -> updateSum(Form.type_1)
-            Form.type_1_2 -> updateSum(Form.type_1)
-            Form.type_1_3 -> updateSum(Form.type_1)
-            Form.type_2_1 -> updateSum(Form.type_2)
-            Form.type_2_2 -> updateSum(Form.type_2)
-            Form.type_2_3 -> updateSum(Form.type_2)
-            Form.type_1 -> updateSum(Form.type_6)
-            Form.type_2 -> updateSum(Form.type_6)
-            Form.type_3 -> updateSum(Form.type_6)
-            Form.type_4 -> updateSum(Form.type_6)
-            Form.type_5 -> updateSum(Form.type_7)
-            Form.type_6 -> updateSum(Form.type_7)
-        }
     }
 }
 
