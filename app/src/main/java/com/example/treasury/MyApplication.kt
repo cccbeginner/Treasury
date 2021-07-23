@@ -15,13 +15,11 @@ class MyApplication : Application() {
         val year = Calendar.getInstance().get(Calendar.YEAR)
         val month = Calendar.getInstance().get(Calendar.MONTH)
         current = year * 12 + month
-        end = current + after
     }
 
     companion object{
-        const val start = 2010*12
-        const val after = 0
+        const val start = 1951*12
+        const val end = 2100*12
         var current by Delegates.notNull<Int>()
-        var end by Delegates.notNull<Int>()
     }
 }

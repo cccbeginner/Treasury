@@ -1,9 +1,7 @@
 package com.example.treasury.page
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +9,13 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.treasury.edit.EditActivity
 import com.example.treasury.MyApplication
 import com.example.treasury.R
+import com.example.treasury.edit.EditActivity
 import com.example.treasury.formDatabase.Form
 import com.example.treasury.formDatabase.FormRepository
 
@@ -30,6 +29,8 @@ class PageFragment(private val yearMonth: Int) : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        // initialize view model
         formRepository = (requireActivity().application as MyApplication).formRepository
         pageViewModel = ViewModelProvider(this, PageViewModelFactory(formRepository, yearMonth)).get(
             PageViewModel::class.java)
@@ -115,8 +116,6 @@ class PageFragment(private val yearMonth: Int) : Fragment() {
                 requireActivity().runOnUiThread {
                     adapter.updateData(it)
                     if (it.isNotEmpty()) {
-                        println(yearMonth)
-                        println(it)
                         goEdit.visibility = View.GONE
                         page.visibility = View.VISIBLE
                     }
@@ -153,7 +152,7 @@ class PageFragment(private val yearMonth: Int) : Fragment() {
             startActivity(intent)
         }
 
-        println("${yearMonth / 12} ${yearMonth % 12 + 1}")
+        println("page fragment ${yearMonth / 12} / ${yearMonth % 12 + 1}")
         return root
     }
 }

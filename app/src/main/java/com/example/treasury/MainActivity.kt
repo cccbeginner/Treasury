@@ -1,70 +1,78 @@
 package com.example.treasury
 
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Lifecycle
-import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
-import com.example.treasury.formDatabase.FormRepository
 import com.example.treasury.page.PageFragment
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
-import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
+
+    var selectedYear = -1
+    var selectedMonth = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         // decide how many pages should I create (?)
-        val start = MyApplication.start
-        val end = MyApplication.end
+        val startYear = MyApplication.start / 12
 
         // current year and month
         val currentYearMonth = MyApplication.current
+        selectedYear = currentYearMonth / 12
+        selectedMonth = currentYearMonth % 12
+        refreshPage()
 
-        // resource to create pages
-        val fragments = ArrayList<Fragment>()
-        val titles = ArrayList<String>()
-        for (yearMonth in start..end){
-            val newYear = yearMonth / 12
-            val newMonth = yearMonth % 12 + 1
-            titles.add("$newYear 年 $newMonth 月")
-            fragments.add(PageFragment(yearMonth))
+        // set year spinners
+        val spinnerYear = findViewById<Spinner>(R.id.spinner_year)
+        spinnerYear.adapter = ArrayAdapter.createFromResource(
+            this,
+            R.array.year_array,
+            R.layout.spinner_item)
+        spinnerYear.setSelection(currentYearMonth / 12 - startYear)
+        spinnerYear.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                selectedYear = startYear + position
+                refreshPage()
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        // ui -- viewPager2
-        val pageAdapter = PageAdapter(this.supportFragmentManager, lifecycle, fragments)
-        val viewPager2: ViewPager2 = findViewById(R.id.pages)
-        viewPager2.adapter = pageAdapter
-        viewPager2.currentItem = currentYearMonth - start
-        /*viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                FormRepository.selectedYearMonth = position + start
-                println("on page selected ${FormRepository.selectedYearMonth}")
-            }
-        })*/
 
-        // ui -- tabLayout
-        val tabLayout: TabLayout = findViewById(R.id.tabs)
-        tabLayout.setScrollPosition(currentYearMonth - start, 0f, true)
-        TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
-            tab.text = titles[position]
-        }.attach()
+        // set month spinners
+        val spinnerMonth = findViewById<Spinner>(R.id.spinner_month)
+        spinnerMonth.adapter = ArrayAdapter.createFromResource(
+            this,
+            R.array.month_array,
+            R.layout.spinner_item)
+        spinnerMonth.setSelection(currentYearMonth % 12)
+        spinnerMonth.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                selectedMonth = position
+                refreshPage()
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
     }
 
-    class PageAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle, private val fragments: ArrayList<Fragment>) :
-        FragmentStateAdapter(fragmentManager, lifecycle) {
-
-        override fun getItemCount(): Int {
-            return fragments.size
-        }
-
-        override fun createFragment(position: Int): Fragment {
-            return fragments[position]
-        }
+    private fun refreshPage(){
+        val yearMonth = selectedYear * 12 + selectedMonth
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_page, PageFragment(yearMonth))
+            .commit()
     }
 }

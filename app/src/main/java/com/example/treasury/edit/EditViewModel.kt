@@ -17,7 +17,7 @@ class EditViewModel(private val formRepository: FormRepository, private val year
 
     init {
         // fill empty stuffs to the arrays above
-        val listFormArray = formRepository.listFlowMap[yearMonth]!!
+        val listFormArray = formRepository.listFlowMap
         for (type in Form.dataTypeArray){
             formLiveDataArray[type] = listFormArray[type]?.asLiveData()!!
             tmpFormLiveDataArray[type] = MutableLiveData(ArrayList())

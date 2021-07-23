@@ -14,7 +14,7 @@ class PageViewModel(private val formRepository: FormRepository, private val year
         for (type in Form.allTypeArray){
             sumLiveDataArray[type] = MutableLiveData(0)
         }
-        val listFormArray = formRepository.listFlowMap[yearMonth]!!
+        val listFormArray = formRepository.listFlowMap
         for (type in Form.dataTypeArray){
             formLiveDataArray[type] = listFormArray[type]!!.asLiveData()
         }

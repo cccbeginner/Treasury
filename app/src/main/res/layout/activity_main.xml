@@ -7,16 +7,41 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabs"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabMode="scrollable" />
+        android:orientation="horizontal"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/pages"
+        <Spinner
+            android:id="@+id/spinner_year"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/year"
+            android:textSize="30sp"
+            android:layout_weight="2"/>
+        <Spinner
+            android:id="@+id/spinner_month"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/month"
+            android:textSize="30sp"
+            android:layout_weight="2"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_page"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#ffffff" />
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
