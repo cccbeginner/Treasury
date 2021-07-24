@@ -101,8 +101,7 @@ class EditViewModel(private val formRepository: FormRepository, private val year
                 sum -= tmpSumArray[Form.type_4]!!
             }
             Form.type_7 -> {
-                //sum = tmpSumArray[Form.type_5]!! * rate
-                sum = tmpSumArray[Form.type_5]!!
+                sum = tmpSumArray[Form.type_5]!! * tmpSumArray[Form.type_ex_rate]!!
                 sum += tmpSumArray[Form.type_6]!!
             }
         }
@@ -121,6 +120,7 @@ class EditViewModel(private val formRepository: FormRepository, private val year
             Form.type_4 -> updateSum(Form.type_6)
             Form.type_5 -> updateSum(Form.type_7)
             Form.type_6 -> updateSum(Form.type_7)
+            Form.type_ex_rate -> updateSum(Form.type_7)
         }
     }
 }

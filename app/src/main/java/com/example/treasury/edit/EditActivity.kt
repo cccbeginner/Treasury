@@ -53,6 +53,7 @@ class EditActivity : AppCompatActivity() {
         viewArray[Form.type_3] = findViewById(R.id.type_3)
         viewArray[Form.type_4] = findViewById(R.id.type_4)
         viewArray[Form.type_5] = findViewById(R.id.type_5)
+        viewArray[Form.type_ex_rate] = findViewById(R.id.type_ex_rate)
         viewArray[Form.type_6] = findViewById(R.id.type_6)
         viewArray[Form.type_7] = findViewById(R.id.type_7)
 
@@ -71,6 +72,7 @@ class EditActivity : AppCompatActivity() {
         viewArray[Form.type_3]!!.setPadding(0, 20, 0, 0)
         viewArray[Form.type_4]!!.setPadding(0, 20, 0, 0)
         viewArray[Form.type_5]!!.setPadding(0, 20, 0, 0)
+        viewArray[Form.type_ex_rate]!!.setPadding(50, 0, 0, 0)
         viewArray[Form.type_6]!!.setPadding(0, 20, 0, 0)
         viewArray[Form.type_7]!!.setPadding(0, 20, 0, 0)
 
@@ -89,6 +91,7 @@ class EditActivity : AppCompatActivity() {
         viewArray[Form.type_3]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title3)
         viewArray[Form.type_4]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title4)
         viewArray[Form.type_5]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title5)
+        viewArray[Form.type_ex_rate]!!.findViewById<TextView>(R.id.title_edit).text = getString(R.string.title_ex_rate)
         viewArray[Form.type_6]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title6)
         viewArray[Form.type_7]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title7)
 
@@ -170,7 +173,8 @@ class EditActivity : AppCompatActivity() {
         editTextArray[Form.type_1_2] = viewArray[Form.type_1_2]!!.findViewById(R.id.number_edit)
         editTextArray[Form.type_1_3] = viewArray[Form.type_1_3]!!.findViewById(R.id.number_edit)
         editTextArray[Form.type_2_3] = viewArray[Form.type_2_3]!!.findViewById(R.id.number_edit)
-        val nameMap = mapOf(Form.type_1_2 to "現金", Form.type_1_3 to "外幣", Form.type_2_3 to "黃金")
+        editTextArray[Form.type_ex_rate] = viewArray[Form.type_ex_rate]!!.findViewById(R.id.number_edit)
+        val nameMap = mapOf(Form.type_1_2 to "現金", Form.type_1_3 to "外幣", Form.type_2_3 to "黃金", Form.type_ex_rate to "美股匯率")
         for (type in Form.singleTypeArray){
             editViewModel.formLiveDataArray[type]!!.observe(this, {
                 /*
@@ -272,7 +276,8 @@ class EditActivity : AppCompatActivity() {
             Form.type_2_3 to arrayOf("黃金"),
             Form.type_3 to arrayOf(),
             Form.type_4 to arrayOf("文昌押金"),
-            Form.type_5 to arrayOf("E trade 舊", "E trade 新", "F trade")
+            Form.type_5 to arrayOf("E trade 舊", "E trade 新", "F trade"),
+            Form.type_ex_rate to arrayOf("美股匯率")
         )
         for(i in Form.dataTypeArray){
             for(name in insertArray[i]!!){

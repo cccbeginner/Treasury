@@ -115,6 +115,11 @@
                     layout="@layout/form_item_show"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
+                <include
+                    android:id="@+id/type_ex_rate"
+                    layout="@layout/form_item_show"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/form_5_recyclerview"
                     android:layout_width="wrap_content"

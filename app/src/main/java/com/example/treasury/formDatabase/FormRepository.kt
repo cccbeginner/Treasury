@@ -4,7 +4,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 class FormRepository (private val formDao: FormDao) {
 
-    // mutable map <yearMonth, <type, data> >
+    /*
+     * Here, I store in lists even there are
+     *  some type with only one data.
+     *
+     * mutable map <yearMonth, <type, data> >
+     */
     val listFlowMap = mutableMapOf<Int, MutableStateFlow< ArrayList< Form > > >()
 
     init {

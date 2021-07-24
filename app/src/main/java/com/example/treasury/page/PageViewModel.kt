@@ -51,8 +51,7 @@ class PageViewModel(private val formRepository: FormRepository, private val year
                 sum -= sumLiveDataArray[Form.type_4]!!.value!!
             }
             Form.type_7 -> {
-                //sum = tmpSumArray[Form.type_5]!! * rate
-                sum = sumLiveDataArray[Form.type_5]!!.value!!
+                sum = sumLiveDataArray[Form.type_5]!!.value!! * sumLiveDataArray[Form.type_ex_rate]!!.value!!
                 sum += sumLiveDataArray[Form.type_6]!!.value!!
             }
         }

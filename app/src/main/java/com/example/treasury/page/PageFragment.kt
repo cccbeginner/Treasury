@@ -59,6 +59,7 @@ class PageFragment(private val yearMonth: Int) : Fragment() {
         viewArray[Form.type_3] = root.findViewById(R.id.type_3)
         viewArray[Form.type_4] = root.findViewById(R.id.type_4)
         viewArray[Form.type_5] = root.findViewById(R.id.type_5)
+        viewArray[Form.type_ex_rate] = root.findViewById(R.id.type_ex_rate)
         viewArray[Form.type_6] = root.findViewById(R.id.type_6)
         viewArray[Form.type_7] = root.findViewById(R.id.type_7)
 
@@ -77,6 +78,7 @@ class PageFragment(private val yearMonth: Int) : Fragment() {
         viewArray[Form.type_3]!!.setPadding(0, 20, 0, 0)
         viewArray[Form.type_4]!!.setPadding(0, 20, 0, 0)
         viewArray[Form.type_5]!!.setPadding(0, 20, 0, 0)
+        viewArray[Form.type_ex_rate]!!.setPadding(50, 0, 0, 0)
         viewArray[Form.type_6]!!.setPadding(0, 20, 0, 0)
         viewArray[Form.type_7]!!.setPadding(0, 20, 0, 0)
 
@@ -95,6 +97,7 @@ class PageFragment(private val yearMonth: Int) : Fragment() {
         viewArray[Form.type_3]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title3)
         viewArray[Form.type_4]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title4)
         viewArray[Form.type_5]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title5)
+        viewArray[Form.type_ex_rate]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title_ex_rate)
         viewArray[Form.type_6]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title6)
         viewArray[Form.type_7]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title7)
 
@@ -119,14 +122,12 @@ class PageFragment(private val yearMonth: Int) : Fragment() {
                         page.visibility = View.VISIBLE
                     }
                 }
-                println("type $type form $it")
                 pageViewModel.updateSum(type)
             })
         }
 
         for (type in Form.singleTypeArray){
             pageViewModel.formLiveDataArray[type]!!.observe(viewLifecycleOwner, {
-                println("type $type form $it")
                 pageViewModel.updateSum(type)
             })
         }
@@ -137,7 +138,6 @@ class PageFragment(private val yearMonth: Int) : Fragment() {
         for (type in Form.allTypeArray){
             pageViewModel.sumLiveDataArray[type]!!.observe(viewLifecycleOwner, {
                 viewArray[type]!!.findViewById<TextView>(R.id.number_show).text = it.toString()
-                println("type $type sum $it")
                 when(type) {
                     Form.type_1_1 -> pageViewModel.updateSum(Form.type_1)
                     Form.type_1_2 -> pageViewModel.updateSum(Form.type_1)
@@ -151,6 +151,7 @@ class PageFragment(private val yearMonth: Int) : Fragment() {
                     Form.type_4 -> pageViewModel.updateSum(Form.type_6)
                     Form.type_5 -> pageViewModel.updateSum(Form.type_7)
                     Form.type_6 -> pageViewModel.updateSum(Form.type_7)
+                    Form.type_ex_rate -> pageViewModel.updateSum(Form.type_7)
                 }
             })
         }
