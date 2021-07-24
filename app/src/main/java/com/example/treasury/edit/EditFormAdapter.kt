@@ -20,7 +20,7 @@ class EditFormAdapter (private var formArray: ArrayList<Form>) : RecyclerView.Ad
 
     lateinit var event : Event
     interface Event{
-        fun onMoneyChange(number : Double, form : Form)
+        fun onMoneyChange(number : String, form : Form)
         fun onFormDelete(form : Form)
     }
 
@@ -47,12 +47,8 @@ class EditFormAdapter (private var formArray: ArrayList<Form>) : RecyclerView.Ad
         val form = formArray[position]
         holder.title.text = (form.name + "：")
 
-        if (holder.number.text.toString() != form.money.toString()){
-            if(form.money != 0.toDouble()) {
-                holder.number.setText(form.money.toString())
-            }else if (holder.number.text.toString().isNotEmpty()){
-                holder.number.setText("")
-            }
+        if (holder.number.text.toString() != form.money){
+            holder.number.setText(form.money)
         }
 
         // synchronize data when text changes
@@ -66,11 +62,7 @@ class EditFormAdapter (private var formArray: ArrayList<Form>) : RecyclerView.Ad
                 cursorForm = form
 
                 // synchronize data outside ( view & viewModel )
-                if(s.toString() == ""){
-                    event.onMoneyChange(0.toDouble(), form)
-                }else{
-                    event.onMoneyChange(s.toString().toDouble(), form)
-                }
+                event.onMoneyChange(s.toString(), form)
             }
         }
         holder.number.addTextChangedListener(holder.textWatcher)

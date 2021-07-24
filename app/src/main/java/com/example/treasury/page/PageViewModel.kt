@@ -30,7 +30,9 @@ class PageViewModel(private val formRepository: FormRepository, private val year
         var sum = 0.toDouble()
         if (type in Form.dataTypeArray) {
             for (form in formLiveDataArray[type]!!.value!!) {
-                sum += form.money
+                if(form.money != ""){
+                    sum += form.money.toDouble()
+                }
             }
         }
         when(type) {
@@ -44,6 +46,9 @@ class PageViewModel(private val formRepository: FormRepository, private val year
                 sum += sumLiveDataArray[Form.type_2_2]!!.value!!
                 sum += sumLiveDataArray[Form.type_2_3]!!.value!!
             }
+            Form.type_5 -> {
+                sum *= sumLiveDataArray[Form.type_ex_rate]!!.value!!
+            }
             Form.type_6 -> {
                 sum = sumLiveDataArray[Form.type_1]!!.value!!
                 sum += sumLiveDataArray[Form.type_2]!!.value!!
@@ -51,7 +56,7 @@ class PageViewModel(private val formRepository: FormRepository, private val year
                 sum -= sumLiveDataArray[Form.type_4]!!.value!!
             }
             Form.type_7 -> {
-                sum = sumLiveDataArray[Form.type_5]!!.value!! * sumLiveDataArray[Form.type_ex_rate]!!.value!!
+                sum = sumLiveDataArray[Form.type_5]!!.value!!
                 sum += sumLiveDataArray[Form.type_6]!!.value!!
             }
         }

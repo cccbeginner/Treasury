@@ -23,7 +23,7 @@ class PageFormAdapter(private var formArray: ArrayList<Form>) : RecyclerView.Ada
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val form = formArray[position]
         holder.title.text = (form.name + "：")
-        holder.number.text = form.money.toString()
+        holder.number.text = form.money
     }
 
     override fun getItemCount(): Int {

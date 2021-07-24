@@ -49,7 +49,7 @@ class EditViewModel(private val formRepository: FormRepository, private val year
         updateSum(form.type)
         return true
     }
-    fun update(type: Int, name: String, money: Double){
+    fun update(type: Int, name: String, money: String){
         for (i in 0 until tmpFormArray[type]!!.size){
             val curForm = tmpFormArray[type]!![i]
             if (name == curForm.name){
@@ -80,7 +80,9 @@ class EditViewModel(private val formRepository: FormRepository, private val year
         var sum = 0.toDouble()
         if(type in Form.dataTypeArray){
             for (form in tmpFormArray[type]!!){
-                sum += form.money
+                if(form.money != ""){
+                    sum += form.money.toDouble()
+                }
             }
         }
         when(type) {
@@ -94,6 +96,9 @@ class EditViewModel(private val formRepository: FormRepository, private val year
                 sum += tmpSumArray[Form.type_2_2]!!
                 sum += tmpSumArray[Form.type_2_3]!!
             }
+            Form.type_5 -> {
+                sum *= tmpSumArray[Form.type_ex_rate]!!
+            }
             Form.type_6 -> {
                 sum = tmpSumArray[Form.type_1]!!
                 sum += tmpSumArray[Form.type_2]!!
@@ -101,7 +106,7 @@ class EditViewModel(private val formRepository: FormRepository, private val year
                 sum -= tmpSumArray[Form.type_4]!!
             }
             Form.type_7 -> {
-                sum = tmpSumArray[Form.type_5]!! * tmpSumArray[Form.type_ex_rate]!!
+                sum = tmpSumArray[Form.type_5]!!
                 sum += tmpSumArray[Form.type_6]!!
             }
         }
@@ -114,13 +119,13 @@ class EditViewModel(private val formRepository: FormRepository, private val year
             Form.type_2_1 -> updateSum(Form.type_2)
             Form.type_2_2 -> updateSum(Form.type_2)
             Form.type_2_3 -> updateSum(Form.type_2)
+            Form.type_ex_rate -> updateSum(Form.type_5)
             Form.type_1 -> updateSum(Form.type_6)
             Form.type_2 -> updateSum(Form.type_6)
             Form.type_3 -> updateSum(Form.type_6)
             Form.type_4 -> updateSum(Form.type_6)
             Form.type_5 -> updateSum(Form.type_7)
             Form.type_6 -> updateSum(Form.type_7)
-            Form.type_ex_rate -> updateSum(Form.type_7)
         }
     }
 }

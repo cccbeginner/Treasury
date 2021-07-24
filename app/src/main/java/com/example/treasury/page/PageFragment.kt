@@ -117,7 +117,7 @@ class PageFragment(private val yearMonth: Int) : Fragment() {
             pageViewModel.formLiveDataArray[type]?.observe(viewLifecycleOwner, {
                 requireActivity().runOnUiThread {
                     adapter.updateData(it)
-                    if (it.isNotEmpty()) {
+                    if (it.isNotEmpty() && it[0].yearMonth == yearMonth) {
                         goEdit.visibility = View.GONE
                         page.visibility = View.VISIBLE
                     }
@@ -128,6 +128,10 @@ class PageFragment(private val yearMonth: Int) : Fragment() {
 
         for (type in Form.singleTypeArray){
             pageViewModel.formLiveDataArray[type]!!.observe(viewLifecycleOwner, {
+                if (it.isNotEmpty()) {
+                    viewArray[type]!!.findViewById<TextView>(R.id.number_show).text =
+                        it[0].money
+                }
                 pageViewModel.updateSum(type)
             })
         }
@@ -137,7 +141,9 @@ class PageFragment(private val yearMonth: Int) : Fragment() {
          */
         for (type in Form.allTypeArray){
             pageViewModel.sumLiveDataArray[type]!!.observe(viewLifecycleOwner, {
-                viewArray[type]!!.findViewById<TextView>(R.id.number_show).text = it.toString()
+                if(type !in Form.singleTypeArray) {
+                    viewArray[type]!!.findViewById<TextView>(R.id.number_show).text = it.toString()
+                }
                 when(type) {
                     Form.type_1_1 -> pageViewModel.updateSum(Form.type_1)
                     Form.type_1_2 -> pageViewModel.updateSum(Form.type_1)
@@ -145,13 +151,13 @@ class PageFragment(private val yearMonth: Int) : Fragment() {
                     Form.type_2_1 -> pageViewModel.updateSum(Form.type_2)
                     Form.type_2_2 -> pageViewModel.updateSum(Form.type_2)
                     Form.type_2_3 -> pageViewModel.updateSum(Form.type_2)
+                    Form.type_ex_rate -> pageViewModel.updateSum(Form.type_5)
                     Form.type_1 -> pageViewModel.updateSum(Form.type_6)
                     Form.type_2 -> pageViewModel.updateSum(Form.type_6)
                     Form.type_3 -> pageViewModel.updateSum(Form.type_6)
                     Form.type_4 -> pageViewModel.updateSum(Form.type_6)
                     Form.type_5 -> pageViewModel.updateSum(Form.type_7)
                     Form.type_6 -> pageViewModel.updateSum(Form.type_7)
-                    Form.type_ex_rate -> pageViewModel.updateSum(Form.type_7)
                 }
             })
         }

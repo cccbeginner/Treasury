@@ -188,20 +188,14 @@ class EditActivity : AppCompatActivity() {
                     initData()
                 }
                 if(it.isNotEmpty()) {
-                    if (it[0].money != 0.toDouble()) {
-                        editTextArray[type]!!.setText(it[0].money.toString())
-                    }
+                    editTextArray[type]!!.setText(it[0].money)
                 }
             })
             editTextArray[type]!!.addTextChangedListener(object : TextWatcher{
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
                 override fun afterTextChanged(s: Editable?) {
-                    if(s.toString() == ""){
-                        editViewModel.update(type, nameMap[type]!!, 0.toDouble())
-                    }else{
-                        editViewModel.update(type, nameMap[type]!!, s.toString().toDouble())
-                    }
+                    editViewModel.update(type, nameMap[type]!!, s.toString())
                 }
             })
         }
@@ -287,7 +281,7 @@ class EditActivity : AppCompatActivity() {
 
     private class TextChange(val editViewModel : EditViewModel) : EditFormAdapter.Event {
 
-        override fun onMoneyChange(number: Double, form: Form) {
+        override fun onMoneyChange(number: String, form: Form) {
             editViewModel.update(form.type, form.name, number)
         }
 

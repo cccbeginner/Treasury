@@ -30,6 +30,9 @@ class FormRepository (private val formDao: FormDao) {
     }
 
     suspend fun insertMany(formArrayList: ArrayList<Form>){
+        for (k in formArrayList) {
+            k.id = null
+        }
         formDao.insertMany(formArrayList.toTypedArray())
     }
     suspend fun insert(form: Form){
