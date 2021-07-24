@@ -20,7 +20,7 @@ class EditFormAdapter (private var formArray: ArrayList<Form>) : RecyclerView.Ad
 
     lateinit var event : Event
     interface Event{
-        fun onMoneyChange(number : Long, form : Form)
+        fun onMoneyChange(number : Double, form : Form)
         fun onFormDelete(form : Form)
     }
 
@@ -48,7 +48,7 @@ class EditFormAdapter (private var formArray: ArrayList<Form>) : RecyclerView.Ad
         holder.title.text = (form.name + "：")
 
         if (holder.number.text.toString() != form.money.toString()){
-            if(form.money != 0L) {
+            if(form.money != 0.toDouble()) {
                 holder.number.setText(form.money.toString())
             }else if (holder.number.text.toString().isNotEmpty()){
                 holder.number.setText("")
@@ -67,9 +67,9 @@ class EditFormAdapter (private var formArray: ArrayList<Form>) : RecyclerView.Ad
 
                 // synchronize data outside ( view & viewModel )
                 if(s.toString() == ""){
-                    event.onMoneyChange(0, form)
+                    event.onMoneyChange(0.toDouble(), form)
                 }else{
-                    event.onMoneyChange(s.toString().toLong(), form)
+                    event.onMoneyChange(s.toString().toDouble(), form)
                 }
             }
         }

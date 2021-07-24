@@ -10,10 +10,10 @@ class EditViewModel(private val formRepository: FormRepository, private val year
 
     // tmp arrays store temporary data
     var tmpFormLiveDataArray = mutableMapOf< Int, MutableLiveData< ArrayList< Form > > >()
-    var tmpSumLiveDataArray = mutableMapOf< Int, MutableLiveData< Long > >()
+    var tmpSumLiveDataArray = mutableMapOf< Int, MutableLiveData< Double > >()
 
     private var tmpFormArray = mutableMapOf< Int, ArrayList<Form> >()
-    private var tmpSumArray = mutableMapOf< Int, Long >()
+    private var tmpSumArray = mutableMapOf< Int, Double >()
 
     init {
         // fill empty stuffs to the arrays above
@@ -24,8 +24,8 @@ class EditViewModel(private val formRepository: FormRepository, private val year
             tmpFormArray[type] = ArrayList()
         }
         for (type in Form.allTypeArray){
-            tmpSumLiveDataArray[type] = MutableLiveData(0)
-            tmpSumArray[type] = 0
+            tmpSumLiveDataArray[type] = MutableLiveData(0.toDouble())
+            tmpSumArray[type] = 0.toDouble()
         }
     }
 
@@ -49,7 +49,7 @@ class EditViewModel(private val formRepository: FormRepository, private val year
         updateSum(form.type)
         return true
     }
-    fun update(type: Int, name: String, money: Long){
+    fun update(type: Int, name: String, money: Double){
         for (i in 0 until tmpFormArray[type]!!.size){
             val curForm = tmpFormArray[type]!![i]
             if (name == curForm.name){
@@ -77,7 +77,7 @@ class EditViewModel(private val formRepository: FormRepository, private val year
     }
 
     private fun updateSum(type: Int){
-        var sum = 0L
+        var sum = 0.toDouble()
         if(type in Form.dataTypeArray){
             for (form in tmpFormArray[type]!!){
                 sum += form.money

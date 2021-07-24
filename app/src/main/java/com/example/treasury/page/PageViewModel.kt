@@ -7,12 +7,12 @@ import kotlinx.coroutines.launch
 
 class PageViewModel(private val formRepository: FormRepository, private val yearMonth: Int) : ViewModel() {
     var formLiveDataArray = mutableMapOf< Int, LiveData< ArrayList< Form > > >()
-    var sumLiveDataArray = mutableMapOf< Int, MutableLiveData< Long > >()
+    var sumLiveDataArray = mutableMapOf< Int, MutableLiveData< Double > >()
 
     init {
         // fill empty stuffs to the arrays above
         for (type in Form.allTypeArray){
-            sumLiveDataArray[type] = MutableLiveData(0)
+            sumLiveDataArray[type] = MutableLiveData(0.toDouble())
         }
         val listFormArray = formRepository.listFlowMap
         for (type in Form.dataTypeArray){
@@ -27,7 +27,7 @@ class PageViewModel(private val formRepository: FormRepository, private val year
     }
 
     fun updateSum(type: Int){
-        var sum = 0L
+        var sum = 0.toDouble()
         if (type in Form.dataTypeArray) {
             for (form in formLiveDataArray[type]!!.value!!) {
                 sum += form.money

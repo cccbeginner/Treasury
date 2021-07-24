@@ -32,7 +32,6 @@ class EditActivity : AppCompatActivity() {
 
         currentYearMonth = intent.getIntExtra("yearMonth", -1)
         formRepository = (application as MyApplication).formRepository
-        println("edit yearmonth $currentYearMonth")
         editViewModel = ViewModelProvider(this, EditViewModelFactory(formRepository,
             currentYearMonth
         )).get(
@@ -189,7 +188,7 @@ class EditActivity : AppCompatActivity() {
                     initData()
                 }
                 if(it.isNotEmpty()) {
-                    if (it[0].money != 0L) {
+                    if (it[0].money != 0.toDouble()) {
                         editTextArray[type]!!.setText(it[0].money.toString())
                     }
                 }
@@ -199,9 +198,9 @@ class EditActivity : AppCompatActivity() {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
                 override fun afterTextChanged(s: Editable?) {
                     if(s.toString() == ""){
-                        editViewModel.update(type, nameMap[type]!!, 0)
+                        editViewModel.update(type, nameMap[type]!!, 0.toDouble())
                     }else{
-                        editViewModel.update(type, nameMap[type]!!, s.toString().toLong())
+                        editViewModel.update(type, nameMap[type]!!, s.toString().toDouble())
                     }
                 }
             })
@@ -288,7 +287,7 @@ class EditActivity : AppCompatActivity() {
 
     private class TextChange(val editViewModel : EditViewModel) : EditFormAdapter.Event {
 
-        override fun onMoneyChange(number: Long, form: Form) {
+        override fun onMoneyChange(number: Double, form: Form) {
             editViewModel.update(form.type, form.name, number)
         }
 

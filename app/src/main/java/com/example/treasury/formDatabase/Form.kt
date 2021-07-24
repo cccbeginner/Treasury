@@ -16,10 +16,10 @@ data class Form(
     val yearMonth: Int,
     val type: Int,
     val name: String,
-    var money: Long,
+    var money: Double,
     var note: String,
 ) {
-    constructor(yearMonth: Int, type: Int, name: String): this(null, yearMonth, type, name, 0, "")
+    constructor(yearMonth: Int, type: Int, name: String): this(null, yearMonth, type, name, 0.toDouble(), "")
 
     companion object{
 
