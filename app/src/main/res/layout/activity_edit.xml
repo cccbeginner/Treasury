@@ -29,8 +29,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/form_1_1_recyclerview"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="80dp"/>
+                android:layout_height="wrap_content"/>
             <Button
                 android:id="@+id/add_1_1_button"
                 android:layout_width="wrap_content"
@@ -60,8 +59,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/form_2_1_recyclerview"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="80dp"/>
+                android:layout_height="wrap_content"/>
             <Button
                 android:id="@+id/add_2_1_button"
                 android:layout_width="wrap_content"
@@ -75,8 +73,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/form_2_2_recyclerview"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="80dp"/>
+                android:layout_height="wrap_content"/>
             <include
                 android:id="@+id/type_2_3"
                 layout="@layout/form_item_edit_no_delete"
@@ -91,8 +88,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/form_3_recyclerview"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="40dp"/>
+                android:layout_height="wrap_content"/>
             <Button
                 android:id="@+id/add_3_button"
                 android:layout_width="wrap_content"
@@ -107,8 +103,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/form_4_recyclerview"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="40dp"/>
+                android:layout_height="wrap_content"/>
             <Button
                 android:id="@+id/add_4_button"
                 android:layout_width="wrap_content"
@@ -128,8 +123,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/form_5_recyclerview"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="40dp"/>
+                android:layout_height="wrap_content"/>
             <Button
                 android:id="@+id/add_5_button"
                 android:layout_width="wrap_content"

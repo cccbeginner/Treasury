@@ -44,8 +44,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/form_1_1_recyclerview"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="80dp"/>
+                    android:layout_height="wrap_content"/>
                 <include
                     android:id="@+id/type_1_2"
                     layout="@layout/form_item_show"
@@ -70,8 +69,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/form_2_1_recyclerview"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="80dp"/>
+                    android:layout_height="wrap_content"/>
                 <include
                     android:id="@+id/type_2_2"
                     layout="@layout/form_item_show"
@@ -80,8 +78,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/form_2_2_recyclerview"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="80dp"/>
+                    android:layout_height="wrap_content"/>
                 <include
                     android:id="@+id/type_2_3"
                     layout="@layout/form_item_show"
@@ -96,8 +93,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/form_3_recyclerview"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="40dp"/>
+                    android:layout_height="wrap_content"/>
 
                 <include
                     android:id="@+id/type_4"
@@ -107,8 +103,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/form_4_recyclerview"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="40dp"/>
+                    android:layout_height="wrap_content"/>
 
                 <include
                     android:id="@+id/type_5"
@@ -123,8 +118,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/form_5_recyclerview"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="40dp"/>
+                    android:layout_height="wrap_content"/>
 
                 <include
                     android:id="@+id/type_6"

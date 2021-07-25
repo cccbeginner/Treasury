@@ -108,6 +108,12 @@ class EditActivity : AppCompatActivity() {
         formRecyclerViewArray[Form.type_4] = findViewById(R.id.form_4_recyclerview)
         formRecyclerViewArray[Form.type_5] = findViewById(R.id.form_5_recyclerview)
 
+        formRecyclerViewArray[Form.type_1_1]!!.setPadding(200, 0, 0, 0)
+        formRecyclerViewArray[Form.type_2_1]!!.setPadding(200, 0, 0, 0)
+        formRecyclerViewArray[Form.type_2_2]!!.setPadding(200, 0, 0, 0)
+        formRecyclerViewArray[Form.type_3]!!.setPadding(100, 0, 0, 0)
+        formRecyclerViewArray[Form.type_4]!!.setPadding(100, 0, 0, 0)
+        formRecyclerViewArray[Form.type_5]!!.setPadding(100, 0, 0, 0)
 
         /*
          * Implement adapters and observers for lists of data.
