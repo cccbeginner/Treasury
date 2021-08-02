@@ -22,6 +22,9 @@
     <string name="go_edit">修改</string>
     <string name="year">年</string>
     <string name="month">月</string>
+    <string name="l">/</string>
+    <string name="year_AD">西元年</string>
+    <string name="day">日</string>
     <string-array name="month_array">
         <item>1</item>
         <item>2</item>

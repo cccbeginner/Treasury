@@ -23,7 +23,7 @@ class EditViewModel(private val formRepository: FormRepository, private val year
             tmpFormLiveDataArray[type] = MutableLiveData(ArrayList())
             tmpFormArray[type] = ArrayList()
         }
-        for (type in Form.allTypeArray){
+        for (type in Form.sumTypeArray){
             tmpSumLiveDataArray[type] = MutableLiveData(0.toDouble())
             tmpSumArray[type] = 0.toDouble()
         }
@@ -41,6 +41,8 @@ class EditViewModel(private val formRepository: FormRepository, private val year
     fun insert(form: Form): Boolean{
         for (curForm in tmpFormArray[form.type]!!){
             if (form.name == curForm.name){
+                println("insert failed")
+                println(form)
                 return false
             }
         }
@@ -77,6 +79,8 @@ class EditViewModel(private val formRepository: FormRepository, private val year
     }
 
     private fun updateSum(type: Int){
+        if(type !in Form.sumTypeArray)return
+
         var sum = 0.toDouble()
         if(type in Form.dataTypeArray){
             for (form in tmpFormArray[type]!!){

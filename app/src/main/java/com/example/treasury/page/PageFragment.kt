@@ -45,6 +45,27 @@ class PageFragment(private val yearMonth: Int) : Fragment() {
         page.visibility = View.GONE
 
         /*
+         * Set date.
+         */
+        val viewDate = root.findViewById<View>(R.id.date)
+        viewDate.setPadding(0, 20, 0, 40)
+        pageViewModel.formLiveDataArray[Form.type_year]!!.observe(viewLifecycleOwner, {
+            if (it.isNotEmpty()) {
+                viewDate.findViewById<TextView>(R.id.year_show).text = it[0].money
+            }
+        })
+        pageViewModel.formLiveDataArray[Form.type_month]!!.observe(viewLifecycleOwner, {
+            if (it.isNotEmpty()) {
+                viewDate.findViewById<TextView>(R.id.month_show).text = it[0].money
+            }
+        })
+        pageViewModel.formLiveDataArray[Form.type_day]!!.observe(viewLifecycleOwner, {
+            if (it.isNotEmpty()) {
+                viewDate.findViewById<TextView>(R.id.day_show).text = it[0].money
+            }
+        })
+
+        /*
          * Set views.
          */
         val viewArray = mutableMapOf<Int, View>()
@@ -146,7 +167,7 @@ class PageFragment(private val yearMonth: Int) : Fragment() {
         /*
          * Implements observers for showing sum.
          */
-        for (type in Form.allTypeArray){
+        for (type in Form.sumTypeArray){
             pageViewModel.sumLiveDataArray[type]!!.observe(viewLifecycleOwner, {
                 if(type !in Form.singleTypeArray) {
                     viewArray[type]!!.findViewById<TextView>(R.id.number_show).text = it.toString()

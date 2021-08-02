@@ -37,6 +37,7 @@ class EditActivity : AppCompatActivity() {
         )).get(
             EditViewModel::class.java)
 
+
         /*
          * Set views.
          */
@@ -147,7 +148,7 @@ class EditActivity : AppCompatActivity() {
         /*
          * Implements observers for calculating sum.
          */
-        for (type in Form.allTypeArray){
+        for (type in Form.sumTypeArray){
             if(type in Form.singleTypeArray)continue
             editViewModel.tmpSumLiveDataArray[type]!!.observe(this, {
                 viewArray[type]!!.findViewById<TextView>(R.id.number_show).text = it.toString()
@@ -202,6 +203,32 @@ class EditActivity : AppCompatActivity() {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
                 override fun afterTextChanged(s: Editable?) {
                     editViewModel.update(type, nameMap[type]!!, s.toString())
+                }
+            })
+        }
+
+        /*
+         * Set date.
+         */
+        val viewDate = findViewById<View>(R.id.date)
+        viewDate.setPadding(0, 20, 0, 40)
+        val dateIdMap = mapOf(Form.type_year to R.id.year_edit, Form.type_month to R.id.month_edit, Form.type_day to R.id.day_edit)
+        val dateNameMap = mapOf(Form.type_year to "西元年", Form.type_month to "月", Form.type_day to "日")
+        for (type in Form.dateTypeArray) {
+            editViewModel.formLiveDataArray[type]!!.observe(this, {
+                if (it.isNotEmpty()) {
+                    viewDate.findViewById<TextView>(dateIdMap[type]!!).text = it[0].money
+                }
+                alreadyObserve += 1
+                if (alreadyObserve == Form.dataTypeArray.size){
+                    initData()
+                }
+            })
+            viewDate.findViewById<TextView>(dateIdMap[type]!!).addTextChangedListener(object : TextWatcher{
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                override fun afterTextChanged(s: Editable?) {
+                    editViewModel.update(type, dateNameMap[type]!!, s.toString())
                 }
             })
         }
@@ -276,11 +303,14 @@ class EditActivity : AppCompatActivity() {
             Form.type_3 to arrayOf(),
             Form.type_4 to arrayOf("文昌押金"),
             Form.type_5 to arrayOf("E trade 舊", "E trade 新", "F trade"),
-            Form.type_ex_rate to arrayOf("美股匯率")
+            Form.type_ex_rate to arrayOf("美股匯率"),
+            Form.type_year to arrayOf("西元年"),
+            Form.type_month to arrayOf("月"),
+            Form.type_day to arrayOf("日")
         )
-        for(i in Form.dataTypeArray){
-            for(name in insertArray[i]!!){
-                editViewModel.insert(Form(month, i, name))
+        for(nameArr in insertArray){
+            for(name in nameArr.value){
+               editViewModel.insert(Form(month, nameArr.key, name))
             }
         }
     }

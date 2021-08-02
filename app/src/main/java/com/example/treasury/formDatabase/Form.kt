@@ -37,7 +37,10 @@ data class Form(
         const val type_5 = 10
         const val type_6 = 11
         const val type_7 = 12
-        const val type_ex_rate = 13
+        const val type_ex_rate = 13 // name = {"美股匯率"}
+        const val type_year = 14 // name = {"西元年"}
+        const val type_month = 15 // name = {"月"}
+        const val type_day = 16 // name = {"日"}
 
         // type array with a list data
         val listTypeArray = arrayOf(type_1_1, type_2_1, type_2_2, type_3, type_4, type_5)
@@ -46,9 +49,15 @@ data class Form(
         val singleTypeArray = arrayOf(type_1_2, type_1_3, type_2_3, type_ex_rate)
 
         // type array with data in database
-        val dataTypeArray = arrayOf(type_1_1, type_1_2, type_1_3, type_2_1, type_2_2, type_2_3, type_3, type_4, type_5, type_ex_rate)
+        val dataTypeArray = arrayOf(type_1_1, type_1_2, type_1_3, type_2_1, type_2_2, type_2_3, type_3, type_4, type_5, type_ex_rate, type_year, type_month, type_day)
 
         // type array with sum in title
-        val allTypeArray = arrayOf(type_1, type_1_1, type_1_2, type_1_3, type_2, type_2_1, type_2_2, type_2_3, type_3, type_4, type_5, type_6, type_7, type_ex_rate)
+        val sumTypeArray = arrayOf(type_1, type_1_1, type_1_2, type_1_3, type_2, type_2_1, type_2_2, type_2_3, type_3, type_4, type_5, type_6, type_7, type_ex_rate)
+
+        // type array with dates
+        val dateTypeArray = arrayOf(type_year, type_month, type_day)
+
+        // type array with all types
+        val allTypeArray = arrayOf(type_1, type_1_1, type_1_2, type_1_3, type_2, type_2_1, type_2_2, type_2_3, type_3, type_4, type_5, type_6, type_7, type_ex_rate, type_year, type_month, type_day)
     }
 }

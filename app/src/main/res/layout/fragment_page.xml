@@ -31,6 +31,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
+                <include
+                    android:id="@+id/date"
+                    layout="@layout/form_date_show"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
                 <include
                     android:id="@+id/type_1"
                     layout="@layout/form_item_show"

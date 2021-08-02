@@ -13,7 +13,7 @@ abstract class FormDatabase : RoomDatabase(){
 
     companion object{
         private var instance: FormDatabase? = null
-        private val databaseName = "Treasury.db"
+        private const val databaseName = "Treasury.db"
 
         fun getInstance(context: Context): FormDatabase {
             instance ?: synchronized(FormDatabase::class){
@@ -25,7 +25,7 @@ abstract class FormDatabase : RoomDatabase(){
             return instance!!
         }
 
-        val migration_1_2 : Migration = object : Migration(1, 2){
+        private val migration_1_2 : Migration = object : Migration(1, 2){
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("ALTER TABLE tbl_form RENAME TO tbl_form_old")
                 database.execSQL("CREATE TABLE tbl_form (" +
@@ -42,7 +42,7 @@ abstract class FormDatabase : RoomDatabase(){
                 database.execSQL("DROP TABLE tbl_form_old")
             }
         }
-        val migration_2_3 : Migration = object : Migration(2, 3){
+        private val migration_2_3 : Migration = object : Migration(2, 3){
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("ALTER TABLE tbl_form RENAME TO tbl_form_old")
                 database.execSQL("CREATE TABLE tbl_form (" +
