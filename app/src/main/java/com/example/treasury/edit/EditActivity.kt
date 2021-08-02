@@ -187,15 +187,13 @@ class EditActivity : AppCompatActivity() {
                  * What this observer do is to fetch database data
                  * initially, and it supposed to do only once.
                  */
-                for (form in it){
-                    editViewModel.insert(form)
+                if(it.isNotEmpty()) {
+                    editViewModel.insert(it[0])
+                    editTextArray[type]!!.setText(it[0].money)
                 }
                 alreadyObserve += 1
                 if(alreadyObserve == Form.dataTypeArray.size){
                     initData()
-                }
-                if(it.isNotEmpty()) {
-                    editTextArray[type]!!.setText(it[0].money)
                 }
             })
             editTextArray[type]!!.addTextChangedListener(object : TextWatcher{
@@ -217,6 +215,7 @@ class EditActivity : AppCompatActivity() {
         for (type in Form.dateTypeArray) {
             editViewModel.formLiveDataArray[type]!!.observe(this, {
                 if (it.isNotEmpty()) {
+                    editViewModel.insert(it[0])
                     viewDate.findViewById<TextView>(dateIdMap[type]!!).text = it[0].money
                 }
                 alreadyObserve += 1

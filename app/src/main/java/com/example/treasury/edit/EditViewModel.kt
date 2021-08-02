@@ -41,11 +41,11 @@ class EditViewModel(private val formRepository: FormRepository, private val year
     fun insert(form: Form): Boolean{
         for (curForm in tmpFormArray[form.type]!!){
             if (form.name == curForm.name){
-                println("insert failed")
-                println(form)
                 return false
             }
         }
+        println("insert form")
+        println(form)
         tmpFormArray[form.type]!!.add(form)
         updateLiveData(form.type)
         updateSum(form.type)
@@ -55,6 +55,8 @@ class EditViewModel(private val formRepository: FormRepository, private val year
         for (i in 0 until tmpFormArray[type]!!.size){
             val curForm = tmpFormArray[type]!![i]
             if (name == curForm.name){
+                println("update form")
+                println("$type $name $money")
                 tmpFormArray[type]!![i].money = money
             }
         }
@@ -62,6 +64,8 @@ class EditViewModel(private val formRepository: FormRepository, private val year
         updateSum(type)
     }
     fun delete(form: Form){
+        println("delete form")
+        println(form)
         tmpFormArray[form.type]!!.remove(form)
         updateLiveData(form.type)
         updateSum(form.type)
@@ -73,6 +77,7 @@ class EditViewModel(private val formRepository: FormRepository, private val year
             formRepository.deleteByCurrentYearMonth(yearMonth)
             for (formArray in tmpFormArray){
                 formRepository.insertMany(formArray.value)
+                println(formArray.value)
             }
             formRepository.fetchData(yearMonth)
         }
