@@ -119,7 +119,6 @@ class EditActivity : AppCompatActivity() {
         /*
          * Implement adapters and observers for lists of data.
          */
-        var alreadyObserve = 0
         for(type in Form.listTypeArray){
             val adapter = EditFormAdapter(ArrayList())
             adapter.event = TextChange(editViewModel)
@@ -132,10 +131,6 @@ class EditActivity : AppCompatActivity() {
                  */
                 for (form in it){
                     editViewModel.insert(form)
-                }
-                alreadyObserve += 1
-                if(alreadyObserve == Form.dataTypeArray.size){
-                    initData()
                 }
             })
             editViewModel.tmpFormLiveDataArray[type]?.observe(this, {
@@ -191,10 +186,6 @@ class EditActivity : AppCompatActivity() {
                     editViewModel.insert(it[0])
                     editTextArray[type]!!.setText(it[0].money)
                 }
-                alreadyObserve += 1
-                if(alreadyObserve == Form.dataTypeArray.size){
-                    initData()
-                }
             })
             editTextArray[type]!!.addTextChangedListener(object : TextWatcher{
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -208,6 +199,7 @@ class EditActivity : AppCompatActivity() {
         /*
          * Set date.
          */
+        var alreadyHaveDate = false
         val viewDate = findViewById<View>(R.id.date)
         viewDate.setPadding(0, 20, 0, 40)
         val dateIdMap = mapOf(Form.type_year to R.id.year_edit, Form.type_month to R.id.month_edit, Form.type_day to R.id.day_edit)
@@ -217,10 +209,9 @@ class EditActivity : AppCompatActivity() {
                 if (it.isNotEmpty()) {
                     editViewModel.insert(it[0])
                     viewDate.findViewById<TextView>(dateIdMap[type]!!).text = it[0].money
-                }
-                alreadyObserve += 1
-                if (alreadyObserve == Form.dataTypeArray.size){
-                    initData()
+                }else if (!alreadyHaveDate){
+                    initColumns()
+                    alreadyHaveDate = true
                 }
             })
             viewDate.findViewById<TextView>(dateIdMap[type]!!).addTextChangedListener(object : TextWatcher{
@@ -249,50 +240,20 @@ class EditActivity : AppCompatActivity() {
     /*
      * Call this function if there is nothing in the form.
      */
-    private fun initData(){
-        /*
-        initialize forms if doesn't have any:
+    private fun initColumns(){
 
-        年/月/日
-
-        一、 流動現金：(a+b+c)
-        a. 活存 :
-        中山 台山
-        台茹 台宴
-        郵茹 星展
-        b. 現金
-        c. 外幣
-
-        二、投資帳現值：
-        a. 證券
-        富邦銀
-        富邦證
-        元大證
-        b. 基金
-        台銀
-        星展
-        c. 黃金
-
-        三、貸款餘額 :
-        a. 備註
-        b. 備註
-
-        四、扣除 : 文昌押金
-
-        五、美股
-        a. E trade 舊
-        b. E trade 新
-        c. F trade
-        註. 美金對台幣匯率
-
-        六、不含美股總值 (一 + 二 - 三 - 四)
-
-        七、含美股總值 (五×匯率＋六)
-        (美股總值折合台幣=五×匯率)
-
-         */
-        val month = currentYearMonth
-        val insertArray = mapOf(
+        for (type in Form.dataTypeArray){
+            editViewModel.formLiveDataArrayExtra[type]!!.observe(this, {
+                val arrayList = arrayListOf<String>()
+                for (form in it){
+                    arrayList.add(form.name)
+                }
+                for(name in arrayList){
+                    editViewModel.insert(Form(currentYearMonth, type, name))
+                }
+            })
+        }
+        /*val insertArray = mapOf(
             Form.type_1_1 to arrayOf("中山", "台山", "台茹", "台宴", "郵茹", "星展"),
             Form.type_1_2 to arrayOf("現金"),
             Form.type_1_3 to arrayOf("外幣"),
@@ -306,12 +267,7 @@ class EditActivity : AppCompatActivity() {
             Form.type_year to arrayOf("西元年"),
             Form.type_month to arrayOf("月"),
             Form.type_day to arrayOf("日")
-        )
-        for(nameArr in insertArray){
-            for(name in nameArr.value){
-               editViewModel.insert(Form(month, nameArr.key, name))
-            }
-        }
+        )*/
     }
 
     private class TextChange(val editViewModel : EditViewModel) : EditFormAdapter.Event {

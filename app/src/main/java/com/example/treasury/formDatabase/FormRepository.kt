@@ -11,6 +11,7 @@ class FormRepository (private val formDao: FormDao) {
      * mutable map <yearMonth, <type, data> >
      */
     val listFlowMap = mutableMapOf<Int, MutableStateFlow< ArrayList< Form > > >()
+    val listFlowMapExtra = mutableMapOf<Int, MutableStateFlow< ArrayList< Form > > >()
 
     init {
         /*
@@ -18,6 +19,7 @@ class FormRepository (private val formDao: FormDao) {
          */
         for(type in Form.dataTypeArray){
             listFlowMap[type] = MutableStateFlow(ArrayList())
+            listFlowMapExtra[type] = MutableStateFlow(ArrayList())
         }
     }
 
@@ -26,6 +28,13 @@ class FormRepository (private val formDao: FormDao) {
             val forms = formDao.getByType(yearMonth, type)
             val formArray = forms.toCollection(ArrayList())
             listFlowMap[type]?.emit(formArray)
+        }
+    }
+    suspend fun fetchExtraData(yearMonth: Int){
+        for (type in Form.dataTypeArray) {
+            val forms = formDao.getByType(yearMonth, type)
+            val formArray = forms.toCollection(ArrayList())
+            listFlowMapExtra[type]?.emit(formArray)
         }
     }
 

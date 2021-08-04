@@ -7,6 +7,7 @@ import kotlinx.coroutines.launch
 
 class EditViewModel(private val formRepository: FormRepository, private val yearMonth: Int) : ViewModel() {
     var formLiveDataArray = mutableMapOf< Int, LiveData< ArrayList< Form > > >()
+    var formLiveDataArrayExtra = mutableMapOf< Int, LiveData< ArrayList< Form > > >()
 
     // tmp arrays store temporary data
     var tmpFormLiveDataArray = mutableMapOf< Int, MutableLiveData< ArrayList< Form > > >()
@@ -17,9 +18,12 @@ class EditViewModel(private val formRepository: FormRepository, private val year
 
     init {
         // fill empty stuffs to the arrays above
-        val listFormArray = formRepository.listFlowMap
+        viewModelScope.launch {
+            formRepository.fetchExtraData(yearMonth-1)
+        }
         for (type in Form.dataTypeArray){
-            formLiveDataArray[type] = listFormArray[type]?.asLiveData()!!
+            formLiveDataArray[type] = formRepository.listFlowMap[type]?.asLiveData()!!
+            formLiveDataArrayExtra[type] = formRepository.listFlowMapExtra[type]?.asLiveData()!!
             tmpFormLiveDataArray[type] = MutableLiveData(ArrayList())
             tmpFormArray[type] = ArrayList()
         }
