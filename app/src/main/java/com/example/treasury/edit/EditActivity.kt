@@ -156,11 +156,11 @@ class EditActivity : AppCompatActivity() {
         val addButtonArray = mutableMapOf<Int, Button>()
         addButtonArray[Form.type_1_1] = findViewById(R.id.add_1_1_button)
         addButtonArray[Form.type_2_1] = findViewById(R.id.add_2_1_button)
+        addButtonArray[Form.type_2_2] = findViewById(R.id.add_2_2_button)
         addButtonArray[Form.type_3] = findViewById(R.id.add_3_button)
         addButtonArray[Form.type_4] = findViewById(R.id.add_4_button)
         addButtonArray[Form.type_5] = findViewById(R.id.add_5_button)
         for (type in Form.listTypeArray){
-            if (type == Form.type_2_2)continue
             addButtonArray[type]?.setOnClickListener {
                 insertDialog(this, type)
             }
