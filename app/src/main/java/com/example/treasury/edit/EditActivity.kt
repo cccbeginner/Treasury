@@ -253,21 +253,30 @@ class EditActivity : AppCompatActivity() {
                 }
             })
         }
-        /*val insertArray = mapOf(
-            Form.type_1_1 to arrayOf("中山", "台山", "台茹", "台宴", "郵茹", "星展"),
-            Form.type_1_2 to arrayOf("現金"),
-            Form.type_1_3 to arrayOf("外幣"),
-            Form.type_2_1 to arrayOf("富邦銀", "富邦證", "元大證"),
-            Form.type_2_2 to arrayOf("台銀", "星展"),
-            Form.type_2_3 to arrayOf("黃金"),
-            Form.type_3 to arrayOf(),
-            Form.type_4 to arrayOf("文昌押金"),
-            Form.type_5 to arrayOf("E trade 舊", "E trade 新", "F trade"),
-            Form.type_ex_rate to arrayOf("美股匯率"),
-            Form.type_year to arrayOf("西元年"),
-            Form.type_month to arrayOf("月"),
-            Form.type_day to arrayOf("日")
-        )*/
+        val nameMap = mapOf(
+            Form.type_1_2 to "現金",
+            Form.type_1_3 to "外幣",
+            Form.type_2_3 to "黃金",
+            Form.type_ex_rate to "美股匯率",
+            Form.type_year to "西元年",
+            Form.type_month to "月",
+            Form.type_day to "日"
+        )
+        for(type in Form.dataTypeArray){
+            if(type in Form.listTypeArray) {
+                editViewModel.formLiveDataArrayExtra[type]!!.observe(this, {
+                    val arrayList = arrayListOf<String>()
+                    for (form in it) {
+                        arrayList.add(form.name)
+                    }
+                    for (name in arrayList) {
+                        editViewModel.insert(Form(currentYearMonth, type, name))
+                    }
+                })
+            }else{
+                editViewModel.insert(Form(currentYearMonth, type, nameMap[type]!!))
+            }
+        }
     }
 
     private class TextChange(val editViewModel : EditViewModel) : EditFormAdapter.Event {

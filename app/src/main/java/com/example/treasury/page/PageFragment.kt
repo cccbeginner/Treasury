@@ -52,16 +52,22 @@ class PageFragment(private val yearMonth: Int) : Fragment() {
         pageViewModel.formLiveDataArray[Form.type_year]!!.observe(viewLifecycleOwner, {
             if (it.isNotEmpty()) {
                 viewDate.findViewById<TextView>(R.id.year_show).text = it[0].money
+                goEdit.visibility = View.GONE
+                page.visibility = View.VISIBLE
             }
         })
         pageViewModel.formLiveDataArray[Form.type_month]!!.observe(viewLifecycleOwner, {
             if (it.isNotEmpty()) {
                 viewDate.findViewById<TextView>(R.id.month_show).text = it[0].money
+                goEdit.visibility = View.GONE
+                page.visibility = View.VISIBLE
             }
         })
         pageViewModel.formLiveDataArray[Form.type_day]!!.observe(viewLifecycleOwner, {
             if (it.isNotEmpty()) {
                 viewDate.findViewById<TextView>(R.id.day_show).text = it[0].money
+                goEdit.visibility = View.GONE
+                page.visibility = View.VISIBLE
             }
         })
 
@@ -145,10 +151,6 @@ class PageFragment(private val yearMonth: Int) : Fragment() {
             pageViewModel.formLiveDataArray[type]?.observe(viewLifecycleOwner, {
                 requireActivity().runOnUiThread {
                     adapter.updateData(it)
-                    if (it.isNotEmpty() && it[0].yearMonth == yearMonth) {
-                        goEdit.visibility = View.GONE
-                        page.visibility = View.VISIBLE
-                    }
                 }
                 pageViewModel.updateSum(type)
             })
