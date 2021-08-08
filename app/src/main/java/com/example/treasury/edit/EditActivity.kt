@@ -175,7 +175,7 @@ class EditActivity : AppCompatActivity() {
         editTextArray[Form.type_1_3] = viewArray[Form.type_1_3]!!.findViewById(R.id.number_edit)
         editTextArray[Form.type_2_3] = viewArray[Form.type_2_3]!!.findViewById(R.id.number_edit)
         editTextArray[Form.type_ex_rate] = viewArray[Form.type_ex_rate]!!.findViewById(R.id.number_edit)
-        val nameMap = mapOf(Form.type_1_2 to "現金", Form.type_1_3 to "外幣", Form.type_2_3 to "黃金", Form.type_ex_rate to "美股匯率")
+        val nameMap = mapOf(Form.type_1_2 to "現金", Form.type_1_3 to "外幣", Form.type_2_3 to "黃金", Form.type_ex_rate to "美金匯率")
         for (type in Form.singleTypeArray){
             editViewModel.formLiveDataArray[type]!!.observe(this, {
                 /*
@@ -185,13 +185,16 @@ class EditActivity : AppCompatActivity() {
                 if(it.isNotEmpty()) {
                     editViewModel.insert(it[0])
                     editTextArray[type]!!.setText(it[0].money)
+                    if(type == Form.type_ex_rate){
+                        editViewModel.updateName(type, it[0].name, "美金匯率")
+                    }
                 }
             })
             editTextArray[type]!!.addTextChangedListener(object : TextWatcher{
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
                 override fun afterTextChanged(s: Editable?) {
-                    editViewModel.update(type, nameMap[type]!!, s.toString())
+                    editViewModel.updateMoney(type, nameMap[type]!!, s.toString())
                 }
             })
         }
@@ -218,7 +221,7 @@ class EditActivity : AppCompatActivity() {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
                 override fun afterTextChanged(s: Editable?) {
-                    editViewModel.update(type, dateNameMap[type]!!, s.toString())
+                    editViewModel.updateMoney(type, dateNameMap[type]!!, s.toString())
                 }
             })
         }
@@ -242,22 +245,11 @@ class EditActivity : AppCompatActivity() {
      */
     private fun initColumns(){
 
-        for (type in Form.dataTypeArray){
-            editViewModel.formLiveDataArrayExtra[type]!!.observe(this, {
-                val arrayList = arrayListOf<String>()
-                for (form in it){
-                    arrayList.add(form.name)
-                }
-                for(name in arrayList){
-                    editViewModel.insert(Form(currentYearMonth, type, name))
-                }
-            })
-        }
         val nameMap = mapOf(
             Form.type_1_2 to "現金",
             Form.type_1_3 to "外幣",
             Form.type_2_3 to "黃金",
-            Form.type_ex_rate to "美股匯率",
+            Form.type_ex_rate to "美金匯率",
             Form.type_year to "西元年",
             Form.type_month to "月",
             Form.type_day to "日"
@@ -282,7 +274,7 @@ class EditActivity : AppCompatActivity() {
     private class TextChange(val editViewModel : EditViewModel) : EditFormAdapter.Event {
 
         override fun onMoneyChange(number: String, form: Form) {
-            editViewModel.update(form.type, form.name, number)
+            editViewModel.updateMoney(form.type, form.name, number)
         }
 
         override fun onFormDelete(form: Form) {

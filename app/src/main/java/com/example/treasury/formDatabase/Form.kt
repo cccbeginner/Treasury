@@ -15,7 +15,7 @@ data class Form(
     @ColumnInfo(name = "year_month")
     val yearMonth: Int,
     val type: Int,
-    val name: String,
+    var name: String,
     var money: String,
     var note: String,
 ) {
@@ -37,7 +37,7 @@ data class Form(
         const val type_5 = 10
         const val type_6 = 11
         const val type_7 = 12
-        const val type_ex_rate = 13 // name = {"美股匯率"}
+        const val type_ex_rate = 13 // name = {"美金匯率"}
         const val type_year = 14 // name = {"西元年"}
         const val type_month = 15 // name = {"月"}
         const val type_day = 16 // name = {"日"}

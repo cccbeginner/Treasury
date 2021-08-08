@@ -15,7 +15,7 @@
     <string name="title5">五、美股：</string>
     <string name="title6">六、不含美股總值：</string>
     <string name="title7">七、含美股總值：</string>
-    <string name="title_ex_rate">美股匯率：</string>
+    <string name="title_ex_rate">美金匯率：</string>
     <string name="add_form">＋新增</string>
     <string name="save">儲存</string>
     <string name="cancel">取消</string>
