@@ -58,7 +58,7 @@ class EditFormAdapter (private var formArray: ArrayList<Form>, private val haveN
         if(holder.numberWatcher != null){
             holder.number.removeTextChangedListener(holder.numberWatcher)
         }
-        if(holder.noteWatcher != null){
+        if(haveNote && holder.noteWatcher != null){
             holder.note.removeTextChangedListener(holder.noteWatcher)
         }
 
