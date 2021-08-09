@@ -59,7 +59,7 @@ class EditViewModel(private val formRepository: FormRepository, private val year
         for (i in 0 until tmpFormArray[type]!!.size){
             val curForm = tmpFormArray[type]!![i]
             if (name == curForm.name){
-                println("update form")
+                println("update money")
                 println("$type $name $money")
                 tmpFormArray[type]!![i].money = money
             }
@@ -71,9 +71,21 @@ class EditViewModel(private val formRepository: FormRepository, private val year
         for (i in 0 until tmpFormArray[type]!!.size){
             val curForm = tmpFormArray[type]!![i]
             if (name == curForm.name){
-                println("update form")
+                println("update name")
                 println("$type $name $newName")
                 tmpFormArray[type]!![i].name = newName
+            }
+        }
+        updateLiveData(type)
+        updateSum(type)
+    }
+    fun updateNote(type: Int, name: String, newNote: String){
+        for (i in 0 until tmpFormArray[type]!!.size){
+            val curForm = tmpFormArray[type]!![i]
+            if (name == curForm.name){
+                println("update note")
+                println("$type $name $newNote")
+                tmpFormArray[type]!![i].note = newNote
             }
         }
         updateLiveData(type)

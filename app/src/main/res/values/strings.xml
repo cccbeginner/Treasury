@@ -25,6 +25,7 @@
     <string name="l">/</string>
     <string name="year_AD">西元年</string>
     <string name="day">日</string>
+    <string name="note">備註：</string>
     <string-array name="month_array">
         <item>1</item>
         <item>2</item>

@@ -48,6 +48,9 @@ data class Form(
         // type array with one data only
         val singleTypeArray = arrayOf(type_1_2, type_2_3, type_ex_rate)
 
+        // type array with one data only
+        val noteTypeArray = arrayOf(type_1_3, type_3)
+
         // type array with data in database
         val dataTypeArray = arrayOf(type_1_1, type_1_2, type_1_3, type_2_1, type_2_2, type_2_3, type_3, type_4, type_5, type_ex_rate, type_year, type_month, type_day)
 

@@ -122,7 +122,12 @@ class EditActivity : AppCompatActivity() {
          * Implement adapters and observers for lists of data.
          */
         for(type in Form.listTypeArray){
-            val adapter = EditFormAdapter(ArrayList())
+            var adapter : EditFormAdapter
+            if(type in Form.noteTypeArray){
+                adapter = EditFormAdapter(ArrayList(), true)
+            }else{
+                adapter = EditFormAdapter(ArrayList(), false)
+            }
             adapter.event = TextChange(editViewModel)
             formRecyclerViewArray[type]!!.adapter = adapter
             formRecyclerViewArray[type]!!.layoutManager = LinearLayoutManager(applicationContext)
@@ -281,6 +286,10 @@ class EditActivity : AppCompatActivity() {
 
         override fun onFormDelete(form: Form) {
             editViewModel.delete(form)
+        }
+
+        override fun onNoteChange(note: String, form: Form) {
+            editViewModel.updateNote(form.type, form.name, note)
         }
     }
 

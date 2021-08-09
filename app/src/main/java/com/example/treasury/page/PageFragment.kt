@@ -147,7 +147,12 @@ class PageFragment(private val yearMonth: Int) : Fragment() {
         formRecyclerViewArray[Form.type_5]!!.setPadding(100, 0, 0, 0)
 
         for(type in Form.listTypeArray){
-            val adapter = PageFormAdapter(ArrayList())
+            var adapter : PageFormAdapter
+            if(type in Form.noteTypeArray){
+                adapter = PageFormAdapter(ArrayList(), true)
+            }else{
+                adapter = PageFormAdapter(ArrayList(), false)
+            }
             formRecyclerViewArray[type]?.adapter = adapter
             formRecyclerViewArray[type]?.layoutManager = LinearLayoutManager(requireContext())
             pageViewModel.formLiveDataArray[type]?.observe(viewLifecycleOwner, {
