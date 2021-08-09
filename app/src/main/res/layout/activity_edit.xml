@@ -47,9 +47,18 @@
                 android:layout_height="wrap_content"/>
             <include
                 android:id="@+id/type_1_3"
-                layout="@layout/form_item_edit_no_delete"
+                layout="@layout/form_item_show"
                 android:layout_width="wrap_content"
                android:layout_height="wrap_content"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/form_1_3_recyclerview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/add_1_3_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/AddButton"/>
 
             <include
                 android:id="@+id/type_2"

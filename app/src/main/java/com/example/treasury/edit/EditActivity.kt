@@ -83,7 +83,7 @@ class EditActivity : AppCompatActivity() {
         viewArray[Form.type_1]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title1)
         viewArray[Form.type_1_1]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title1_1)
         viewArray[Form.type_1_2]!!.findViewById<TextView>(R.id.title_edit).text = getString(R.string.title1_2)
-        viewArray[Form.type_1_3]!!.findViewById<TextView>(R.id.title_edit).text = getString(R.string.title1_3)
+        viewArray[Form.type_1_3]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title1_3)
         viewArray[Form.type_2]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title2)
         viewArray[Form.type_2_1]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title2_1)
         viewArray[Form.type_2_2]!!.findViewById<TextView>(R.id.title_show).text = getString(R.string.title2_2)
@@ -99,10 +99,11 @@ class EditActivity : AppCompatActivity() {
         /*
          * Define recyclerview arrays.
          * Set type with a list of data like:
-         *     type_1_1, type_2_1, type_2_2, type_3, type_4, type_5
+         *     type_1_1, type_1_3, type_2_1, type_2_2, type_3, type_4, type_5
          */
         val formRecyclerViewArray = mutableMapOf<Int, RecyclerView>()
         formRecyclerViewArray[Form.type_1_1] = findViewById(R.id.form_1_1_recyclerview)
+        formRecyclerViewArray[Form.type_1_3] = findViewById(R.id.form_1_3_recyclerview)
         formRecyclerViewArray[Form.type_2_1] = findViewById(R.id.form_2_1_recyclerview)
         formRecyclerViewArray[Form.type_2_2] = findViewById(R.id.form_2_2_recyclerview)
         formRecyclerViewArray[Form.type_3] = findViewById(R.id.form_3_recyclerview)
@@ -110,6 +111,7 @@ class EditActivity : AppCompatActivity() {
         formRecyclerViewArray[Form.type_5] = findViewById(R.id.form_5_recyclerview)
 
         formRecyclerViewArray[Form.type_1_1]!!.setPadding(200, 0, 0, 0)
+        formRecyclerViewArray[Form.type_1_3]!!.setPadding(200, 0, 0, 0)
         formRecyclerViewArray[Form.type_2_1]!!.setPadding(200, 0, 0, 0)
         formRecyclerViewArray[Form.type_2_2]!!.setPadding(200, 0, 0, 0)
         formRecyclerViewArray[Form.type_3]!!.setPadding(100, 0, 0, 0)
@@ -155,6 +157,7 @@ class EditActivity : AppCompatActivity() {
          */
         val addButtonArray = mutableMapOf<Int, Button>()
         addButtonArray[Form.type_1_1] = findViewById(R.id.add_1_1_button)
+        addButtonArray[Form.type_1_3] = findViewById(R.id.add_1_3_button)
         addButtonArray[Form.type_2_1] = findViewById(R.id.add_2_1_button)
         addButtonArray[Form.type_2_2] = findViewById(R.id.add_2_2_button)
         addButtonArray[Form.type_3] = findViewById(R.id.add_3_button)
@@ -172,10 +175,9 @@ class EditActivity : AppCompatActivity() {
          */
         val editTextArray = mutableMapOf<Int, EditText>()
         editTextArray[Form.type_1_2] = viewArray[Form.type_1_2]!!.findViewById(R.id.number_edit)
-        editTextArray[Form.type_1_3] = viewArray[Form.type_1_3]!!.findViewById(R.id.number_edit)
         editTextArray[Form.type_2_3] = viewArray[Form.type_2_3]!!.findViewById(R.id.number_edit)
         editTextArray[Form.type_ex_rate] = viewArray[Form.type_ex_rate]!!.findViewById(R.id.number_edit)
-        val nameMap = mapOf(Form.type_1_2 to "現金", Form.type_1_3 to "外幣", Form.type_2_3 to "黃金", Form.type_ex_rate to "美金匯率")
+        val nameMap = mapOf(Form.type_1_2 to "現金", Form.type_2_3 to "黃金", Form.type_ex_rate to "美金匯率")
         for (type in Form.singleTypeArray){
             editViewModel.formLiveDataArray[type]!!.observe(this, {
                 /*
@@ -212,6 +214,7 @@ class EditActivity : AppCompatActivity() {
                 if (it.isNotEmpty()) {
                     editViewModel.insert(it[0])
                     viewDate.findViewById<TextView>(dateIdMap[type]!!).text = it[0].money
+                    alreadyHaveDate = true
                 }else if (!alreadyHaveDate){
                     initColumns()
                     alreadyHaveDate = true
@@ -247,7 +250,6 @@ class EditActivity : AppCompatActivity() {
 
         val nameMap = mapOf(
             Form.type_1_2 to "現金",
-            Form.type_1_3 to "外幣",
             Form.type_2_3 to "黃金",
             Form.type_ex_rate to "美金匯率",
             Form.type_year to "西元年",

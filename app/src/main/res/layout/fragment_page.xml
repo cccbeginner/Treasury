@@ -19,7 +19,6 @@
             android:backgroundTint="#fff"
             android:contentDescription="+" />
 
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,6 +58,10 @@
                 <include
                     android:id="@+id/type_1_3"
                     layout="@layout/form_item_show"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/form_1_3_recyclerview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 

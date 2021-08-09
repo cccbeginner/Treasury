@@ -131,6 +131,7 @@ class PageFragment(private val yearMonth: Int) : Fragment() {
         // set adapters for listed data
         val formRecyclerViewArray = mutableMapOf<Int, RecyclerView>()
         formRecyclerViewArray[Form.type_1_1] = root.findViewById(R.id.form_1_1_recyclerview)
+        formRecyclerViewArray[Form.type_1_3] = root.findViewById(R.id.form_1_3_recyclerview)
         formRecyclerViewArray[Form.type_2_1] = root.findViewById(R.id.form_2_1_recyclerview)
         formRecyclerViewArray[Form.type_2_2] = root.findViewById(R.id.form_2_2_recyclerview)
         formRecyclerViewArray[Form.type_3] = root.findViewById(R.id.form_3_recyclerview)
@@ -138,6 +139,7 @@ class PageFragment(private val yearMonth: Int) : Fragment() {
         formRecyclerViewArray[Form.type_5] = root.findViewById(R.id.form_5_recyclerview)
 
         formRecyclerViewArray[Form.type_1_1]!!.setPadding(200, 0, 0, 0)
+        formRecyclerViewArray[Form.type_1_3]!!.setPadding(200, 0, 0, 0)
         formRecyclerViewArray[Form.type_2_1]!!.setPadding(200, 0, 0, 0)
         formRecyclerViewArray[Form.type_2_2]!!.setPadding(200, 0, 0, 0)
         formRecyclerViewArray[Form.type_3]!!.setPadding(100, 0, 0, 0)
