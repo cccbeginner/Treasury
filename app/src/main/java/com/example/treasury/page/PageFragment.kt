@@ -168,6 +168,10 @@ class PageFragment(private val yearMonth: Int) : Fragment() {
                 if (it.isNotEmpty()) {
                     viewArray[type]!!.findViewById<TextView>(R.id.number_show).text =
                         it[0].money
+                    if (type in Form.noteTypeArray){
+                        viewArray[type]!!.findViewById<TextView>(R.id.note_show).text =
+                            it[0].note
+                    }
                 }
                 pageViewModel.updateSum(type)
             })

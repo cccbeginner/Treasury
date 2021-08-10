@@ -95,7 +95,7 @@
                 style="@style/AddButton"/>
             <include
                 android:id="@+id/type_2_3"
-                layout="@layout/form_item_edit_no_delete"
+                layout="@layout/form_item_edit_note_no_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

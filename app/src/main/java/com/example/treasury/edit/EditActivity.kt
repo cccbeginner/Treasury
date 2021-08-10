@@ -176,7 +176,7 @@ class EditActivity : AppCompatActivity() {
 
         /*
          * Set type with single data like:
-         *     type_1_2, type_1_3, type_2_3
+         *     type_1_2, type_2_3
          */
         val editTextArray = mutableMapOf<Int, EditText>()
         editTextArray[Form.type_1_2] = viewArray[Form.type_1_2]!!.findViewById(R.id.number_edit)
@@ -195,6 +195,9 @@ class EditActivity : AppCompatActivity() {
                     if(type == Form.type_ex_rate){
                         editViewModel.updateName(type, it[0].name, "美金匯率")
                     }
+                    if (type in Form.noteTypeArray){
+                        viewArray[type]!!.findViewById<EditText>(R.id.note_edit).setText(it[0].note)
+                    }
                 }
             })
             editTextArray[type]!!.addTextChangedListener(object : TextWatcher{
@@ -205,6 +208,14 @@ class EditActivity : AppCompatActivity() {
                 }
             })
         }
+        // note for type_2_3
+        viewArray[Form.type_2_3]!!.findViewById<EditText>(R.id.note_edit).addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                editViewModel.updateNote(Form.type_2_3, nameMap[Form.type_2_3]!!, s.toString())
+            }
+        })
 
         /*
          * Set date.
